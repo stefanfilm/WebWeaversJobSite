@@ -1,67 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Weavers Job Board</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Weavers Job Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-    <header class="header">
-        <h1 class="logo">Web Weavers</h1>
-        <nav class="nav">
-            <ul>
-                <li><a href="#">Sign Up</a></li>
-                <li><a href="#">Sign In</a></li>
+    <header>
+        <nav>
+            <a href="/" class="link">
+                <span class="logo">Web Weavers</span>
+            </a>
+            <ul class="list">
+                <li class="list-item"><a href="#" class="link">Sign Up</a></li>
+                <li class="list-item"><a href="#" class="link">Sign In</a></li>
+                <!-- <li class="list-item" style="display: none;"><button class="btn">Log out</button></li> -->
             </ul>
         </nav>
     </header>
-
-    <div class="main-container">
-        <div class="sidebar-modal">
-            <div class="user-info">
-                <img src="user-photo.jpg" alt="User Photo" class="user-photo">
-                <h2 class="user-name">User Name</h2>
+    <main>
+        <section class="user-section">
+            <div class="img-container">
+                <img src="./imgs/profile-img-default.webp" alt="" class="img">
             </div>
-            <div class="user-jobs">
-                <h3>Careers</h3>
-                <ul class="jobs-list">
-                    <li>Job1</li>
-                    <li>Job2</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="content">
-            <section class="search-bar">
-                <input type="text" placeholder="Search for jobs..." class="search-input">
-                <button class="search-button">Search</button>
-            </section>
-            <section class="job-listings">
-                <article class="job-listing">
-                    <div>
-                        <h2 class="job-title">Job Title</h2>
-                        <p class="company-name">Company Name</p>
-                        <p class="salary">Salary</p>
-                        <p class="job-location">Location</p>
-                    </div>
-                    <div class="job-description">
-                        <p>Description goes here...</p>
-                        <button class="close">&times;</button>
-                    </div>
-                    <div>
-                        <button class="view-details">View Details</button>
-                        <button class="apply-job">Apply</button>
-                    </div>
-                </article>
-            </section>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <p>&copy; Web Weavers. All rights reserved.</p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="logic.js"></script>
+            <h3>Thinh Nguyen</h3>
+            <p class="user-job">Software Engineer</p>
+        </section>
+        <section class="job-section">
+            <form id="search-form">
+                <input type="text" placeholder="Search for jobs..." id="search-input" class="search-input"
+                    autocomplete="off">
+            </form>
+            <ul class="list job-list">
+                <li class="list-item">
+                    <a href="#" class="link link--job">
+                        <div class="job-container">
+                            <div class="job-title-container">
+                                <h2>Job Title</h2>
+                            </div>
+                            <div class="job-info-container">
+                                <p class="company-name">Company Name</p>
+                                <p class="salary">Salary</p>
+                                <p class="job-location">Location</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="link link--job">
+                        <div class="job-container">
+                            <div class="job-title-container">
+                                <h2>Job Title</h2>
+                            </div>
+                            <div class="job-info-container">
+                                <p class="company-name">Company Name</p>
+                                <p class="salary">Salary</p>
+                                <p class="job-location">Location</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="link link--job">
+                        <div class="job-container">
+                            <div class="job-title-container">
+                                <h2>Job Title</h2>
+                            </div>
+                            <div class="job-info-container">
+                                <p class="company-name">Company Name</p>
+                                <p class="salary">Salary</p>
+                                <p class="job-location">Location</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="link link--job">
+                        <div class="job-container">
+                            <div class="job-title-container">
+                                <h2>Job Title</h2>
+                            </div>
+                            <div class="job-info-container">
+                                <p class="company-name">Company Name</p>
+                                <p class="salary">Salary</p>
+                                <p class="job-location">Location</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
 </body>
+
 </html>
