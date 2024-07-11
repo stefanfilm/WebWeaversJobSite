@@ -150,11 +150,33 @@ form {
     margin-bottom: 10px;
 }
 
-.search-input {
+input {
     width: 100%;
     padding: 10px 10px;
     border: 0;
     border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.btn {
+    font-size: 1.5rem;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: unset;
+    font-weight: 600;
+}
+
+.btn:hover {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* JOB */
@@ -178,7 +200,7 @@ form {
 
 @media screen and (min-width: 768px) {
     .job-section {
-        width: calc(100% - 220px);
+        width: calc(100% - 250px);
     }
 }
 
@@ -200,9 +222,18 @@ form {
     }
 }
 
+/* FORM SECTION */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto;
+}
+
 /* MAIN */
 main {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 10px;
+    min-height: 80vh;
 }
