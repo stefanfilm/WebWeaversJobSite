@@ -1,4 +1,4 @@
-const sequelize = require("../config");
+const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
 
 class Recruiter extends Model { }
@@ -10,7 +10,7 @@ Recruiter.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    companry_name: {
+    company_name: {
         type: DataTypes.STRING,
         allowNull: false
     },

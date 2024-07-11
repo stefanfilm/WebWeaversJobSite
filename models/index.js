@@ -14,4 +14,6 @@ Job.belongsTo(Recruiter, {
 Job.hasMany(User, {
     foreignKey: "user_id",
     onDelete: "CASCADE"
-})
+});
+
+module.exports = {Job, Recruiter, User};

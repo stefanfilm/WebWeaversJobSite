@@ -1,8 +1,8 @@
 // when job is remove, all users who registered will be removed.
-const sequelize = require("../config");
+const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
 
-class Job extends Model {}
+class Job extends Model { }
 
 Job.init({
     id: {
@@ -21,20 +21,25 @@ Job.init({
     },
     recruiter_id: {
         type: DataTypes.INTEGER,
-        references: "recruiter",
-        key: "id"
+        references: {
+            model: "recruiter",
+            key: "id"
+        }
     },
     user_id: {
         type: DataTypes.INTEGER,
-        references: "user",
-        key: "id"
+        allowNull: true,
+        references: {
+            model: "user",
+            key: "id"
+        }
     }
 },
-{
-    sequelize,
-    freezeTableName: true,
-    timestamps: true,
-    modelName: "job"
-});
+    {
+        sequelize,
+        freezeTableName: true,
+        timestamps: true,
+        modelName: "job"
+    });
 
 module.exports = Job;
