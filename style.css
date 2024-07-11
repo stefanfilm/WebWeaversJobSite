@@ -1,16 +1,40 @@
-body {
+* {
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #333; 
+    background-color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    color: #fff;  
+    color: #fff;
+} */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1400px;
+}
+
+@media screen and(min-width: 768px){
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        color: #fff;
+    }
 }
 
 .header {
-    background-color: #333;  
+    background-color: #333;
     color: #fff;
     padding: 1rem 2rem;
     display: flex;
@@ -18,10 +42,16 @@ body {
     align-items: center;
 }
 
-.logo {
-    font-size: 1.5rem;
+/* TYPOGRAPHY */
+body{
+    font-size: 1.1rem;
 }
 
+.logo {
+    font-size: 2,027rem;
+}
+
+/* NAVIGATION */
 .nav ul {
     list-style: none;
     display: flex;
@@ -33,14 +63,30 @@ body {
     text-decoration: none;
 }
 
-.main-container {
+
+/* MAIN */
+/* .main-container {
     display: flex;
     flex: 1;
     padding: 2rem;
     gap: 2rem;
+} */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
 }
 
+@media screen and (min-width: 768px){
+    .main-container {
+        flex-direction: row;
+    }
+}
+
+/* USER CONTAINER */
 .sidebar-modal {
+    display: none;
     background-color: #fff;
     color: #333;
     padding: 1rem;
@@ -73,6 +119,14 @@ body {
     padding: 0;
 }
 
+@media screen and (min-width: 768px){
+    .sidebar-modal{
+        display: block;
+        max-height: 300px;
+    }
+}
+
+/* JOB POST AREA */
 .content {
     flex: 1;
     display: flex;
@@ -87,14 +141,15 @@ body {
 }
 
 .search-input {
-    width: 50%;
+    width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
+    margin-right: 20px;
 }
 
-.search-button {
+/* .search-button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     background-color: #fff;
@@ -102,6 +157,23 @@ body {
     border: none;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
+} */
+
+.search-button {
+    /* width: calc(100% - 6px);  */
+    width: 100px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+@media screen and (min-width: 768px){
+    .search-input {
+        width: 50%;
+    }
 }
 
 .job-listings {
@@ -119,20 +191,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .job-title {
     margin: 0;
     font-size: 1.25rem;
-    flex-basis: 100%; 
+    flex-basis: 100%;
 }
 
 .company-name,
 .salary,
 .job-location {
     margin: 0.5rem 0;
-    flex-basis: 100%; 
+    flex-basis: 100%;
 }
 
 .job-description {
@@ -143,7 +215,7 @@ body {
     background-color: #f9f9f9;
     color: #333;
     margin-top: 1rem;
-    flex-basis: 100%; 
+    flex-basis: 100%;
 }
 
 .job-description p {
