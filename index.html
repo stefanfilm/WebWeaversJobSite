@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Weavers Job Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">Web Weavers</h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Sign Up</a></li>
+                <li><a href="#">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar-modal">
+            <div class="user-info">
+                <img src="user-photo.jpg" alt="User Photo" class="user-photo">
+                <h2 class="user-name">User Name</h2>
+            </div>
+            <div class="user-jobs">
+                <h3>Careers</h3>
+                <ul class="jobs-list">
+                    <li>Job1</li>
+                    <li>Job2</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <section class="search-bar">
+                <input type="text" placeholder="Search for jobs..." class="search-input">
+                <button class="search-button">Search</button>
+            </section>
+            <section class="job-listings">
+                <article class="job-listing">
+                    <div>
+                        <h2 class="job-title">Job Title</h2>
+                        <p class="company-name">Company Name</p>
+                        <p class="salary">Salary</p>
+                        <p class="job-location">Location</p>
+                    </div>
+                    <div class="job-description">
+                        <p>Description goes here...</p>
+                        <button class="close">&times;</button>
+                    </div>
+                    <div>
+                        <button class="view-details">View Details</button>
+                        <button class="apply-job">Apply</button>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Web Weavers. All rights reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="logic.js"></script>
+</body>
+</html>
