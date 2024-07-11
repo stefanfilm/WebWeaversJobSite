@@ -150,6 +150,29 @@ form {
     margin-bottom: 10px;
 }
 
+.form-group{
+    position: relative;
+    border: 1px solid black;
+    padding: 15px 10px 0 10px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.form-group:last-child{
+    margin: 0;
+}
+
+.label{
+    position: absolute;
+    z-index: 10;
+    top: -21px;
+    left: 15px;
+    padding: 10px;
+    padding-bottom: 0;
+    background-color: #f5f2ee;
+    font-size: 1.3rem;
+}
+
 input {
     width: 100%;
     padding: 10px 10px;
@@ -223,7 +246,7 @@ input {
 }
 
 /* FORM SECTION */
-.form-section {
+.form-section, .signup-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -236,4 +259,9 @@ main {
     justify-content: space-around;
     padding: 10px;
     min-height: 80vh;
+}
+
+/* MARGIN */
+.mb-1{
+    margin-bottom: 10px;
 }
