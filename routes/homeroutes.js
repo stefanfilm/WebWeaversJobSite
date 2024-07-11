@@ -1,11 +1,15 @@
 const router = require('express').Router();
 const auth = require("../middlewares/auth");
-const { Job, User } = require('../models');
+const { Job, User, Recruiter } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        const jobs = await Job.findAll()
-        res.status(200).json(jobs)
+        let user = null;
+        if(req.session.loggedIn)
+            user = await User.findOne({where: {id: req.session.user_id}}).get({plain: true});
+        const jobData = await Job.findAll({include: [{model: Recruiter}]});
+        const jobs = jobData.map(job => job.get({plain: true}));
+        res.render("home-page", {user, jobs, loggedIn: req.session.loggedIn});
     } catch (error) {
         console.error("ERROR occurs while displaying data on home page\n", error);
         res.status(500).json({ message: "Intenal error, please try again later" });
