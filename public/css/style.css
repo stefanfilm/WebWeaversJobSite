@@ -1,0 +1,267 @@
+:root {
+    --black-color: #333;
+    --gold-color: #e7c97c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* TYPOGRAPHY */
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f5f2ee;
+    font-size: 1.125rem;
+    margin: 0 auto;
+    max-width: 1400px;
+}
+
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+.logo {
+    font-size: 2.027rem;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        font-size: 1.2rem;
+    }
+
+    .logo {
+        font-size: 2.986rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .logo {
+        font-size: 3.815rem;
+    }
+}
+
+/* LIST */
+.list {
+    margin: 0;
+    padding: 0;
+}
+
+.list-item {
+    list-style: none;
+}
+
+/* LINK */
+.link {
+    text-decoration: none;
+}
+
+.link--job {
+    color: black;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+/* IMAGE */
+.img-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.img {
+    width: 100%;
+}
+
+/* HEADER */
+header {
+    background-color: var(--black-color);
+    color: white;
+    padding: 10px;
+    width: 100%;
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly;
+    /* margin-bottom: 500px; */
+}
+
+/* NAVIGATION */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+nav .list {
+    display: flex;
+    justify-content: space-between;
+    width: 105px;
+}
+
+nav .list .list-item:last-child {
+    margin: 0;
+}
+
+nav .link {
+    color: inherit;
+    padding: 5px;
+}
+
+nav .link:hover {
+    color: #e7c97c;
+}
+
+nav .list-item .link:hover {
+    font-weight: bold;
+    background-color: #fff;
+    color: var(--black-color);
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    nav .list {
+        width: 150px;
+    }
+
+    nav .link {
+        font-size: 1.5rem;
+    }
+}
+
+/* SECTION */
+section {
+    margin-top: 20px;
+}
+
+/* FORM */
+form {
+    margin-bottom: 10px;
+}
+
+.form-group{
+    position: relative;
+    border: 1px solid black;
+    padding: 15px 10px 0 10px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.form-group:last-child{
+    margin: 0;
+}
+
+.label{
+    position: absolute;
+    z-index: 10;
+    top: -21px;
+    left: 15px;
+    padding: 10px;
+    padding-bottom: 0;
+    background-color: #f5f2ee;
+    font-size: 1.3rem;
+}
+
+input {
+    width: 100%;
+    padding: 10px 10px;
+    border: 0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.btn {
+    font-size: 1.5rem;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: unset;
+    font-weight: 600;
+}
+
+.btn:hover {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* JOB */
+.job-section {
+    width: 100%;
+}
+
+.job-container {
+    background-color: white;
+    padding: 10px;
+}
+
+.job-container:hover {
+    background-color: var(--gold-color);
+    color: white;
+}
+
+.job-list .list-item {
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px) {
+    .job-section {
+        width: calc(100% - 250px);
+    }
+}
+
+/* USER SECTION */
+.user-section {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .user-section {
+        width: 200px;
+        height: 250px;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+}
+
+/* FORM SECTION */
+.form-section, .signup-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    min-height: 80vh;
+}
+
+/* MARGIN */
+.mb-1{
+    margin-bottom: 10px;
+}

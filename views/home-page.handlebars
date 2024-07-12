@@ -1,0 +1,19 @@
+{{#if loggedIn}}
+<section class="user-section">
+    <div class="img-container">
+        <img src="./imgs/profile-img-default.webp" alt="" class="img">
+    </div>
+    <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <p class="user-job">{{user.job_title}}</p>
+</section>
+{{/if}}
+<section class="job-section">
+    <form id="search-form">
+        <input type="text" placeholder="Search for jobs..." id="search-input" class="search-input" autocomplete="off">
+    </form>
+    <ul class="list job-list">
+        {{#each jobs as |job|}}
+        {{> job-details}}
+        {{/each}}
+    </ul>
+</section>

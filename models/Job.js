@@ -19,6 +19,13 @@ Job.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    salary: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+        validate: {
+            min: 0.01
+        }
+    },
     recruiter_id: {
         type: DataTypes.INTEGER,
         references: {
