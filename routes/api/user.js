@@ -10,6 +10,8 @@ router.post("/signup", async (req, res) => {
             res.status(400).json({ message: "Username is already taken" });
             return;
         }
+
+        console.log(email);
         if (email) {
             res.status(400).json({ message: "Email is already taken" });
             return;
@@ -17,7 +19,7 @@ router.post("/signup", async (req, res) => {
         const user = await User.create({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
-            username: req.body.usename,
+            username: req.body.username,
             password: req.body.password,
             email: req.body.email,
             job_title: req.body.job_title,
