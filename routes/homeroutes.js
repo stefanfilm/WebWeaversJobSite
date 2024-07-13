@@ -42,9 +42,9 @@ router.get("/applications", auth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
-        const jobApplicationData = await Job.findAll({ 
+        const jobApplicationData = await Job.findAll({
             where: { user_id: req.session.user_id },
-            include: [{model: Recruiter}]
+            include: [{ model: Recruiter }]
         });
         const jobApplications = jobApplicationData.map(jobApplication => jobApplication.get({ plain: true }));
         console.log("jobApplications :>>", jobApplications);
@@ -52,6 +52,17 @@ router.get("/applications", auth, async (req, res) => {
     } catch (error) {
         console.log("ERROR occurs while fetching job applications\n", error);
         res.status(500).json({ message: "Internal error, please try again later" });
+    }
+});
+
+router.get("/job/:id", auth, async (req, res) => {
+    try {
+        const jobData = await Job.findOne({where: {id: req.params.id}, include: [{model: Recruiter}]});
+        const job = jobData.get({ plain: true });
+        res.render("job", { job, loggedIn: true });
+    } catch (error) {
+        console.log("ERROR occurs while fetching job data from /job/:id\n", error);
+        res.status(200).json({ message: "Internal error, please try again" });
     }
 });
 

@@ -230,6 +230,15 @@ input {
     margin-bottom: 15px;
 }
 
+.job-detail{
+    width: 100%;
+}
+
+.job-detail:hover{
+    background-color: white;
+    color: black;
+}
+
 @media screen and (min-width: 768px) {
     .job-section {
         width: calc(100% - 250px);
