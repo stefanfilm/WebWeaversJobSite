@@ -1,0 +1,16 @@
+<section class="user-editor">
+    <div class="img-editor-container">
+        <div class="img-container">
+            <img src="./imgs/profile-img-default.webp" alt="" class="img" id="img-profile">
+        </div>
+        <form id="upload-form" class="form-section" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image" class="custom-input-file">Select your image</label>
+                <input type="file" name="image" id="image">
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <p class="user-job">{{user.job_title}}</p>
+</section>
