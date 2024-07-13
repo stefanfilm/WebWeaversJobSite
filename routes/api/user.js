@@ -79,11 +79,30 @@ router.post("/upload", upload.single("image"), async (req, res) => {
 
     try {
         await User.update({ user_img: imgUrl }, { where: { id: req.session.user_id } });
-        res.status(200).json({imgUrl, message: "Upload imgage successfully" });
+        res.status(200).json({ imgUrl, message: "Upload imgage successfully" });
     } catch (error) {
         console.log("ERROR occurs while uploading image");
         res.status(500).json("Internal error, please try again later");
     }
+});
+
+router.post("/profile", async (req, res) => {
+    try {
+        console.log("PROFILE");
+        console.log("req.body.first_name", req.body.first_name);
+        console.log("req.body.last_name", req.body.last_name);
+        await User.update({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            job_title: req.body.job_title
+        }, {
+            where: { id: req.session.user_id }
+        });
+    }catch(error) {
+        console.log("ERROR occurs while updating profile");
+        res.status(500).json("Internal error, please try again later");
+    }
+
 });
 
 module.exports = router;
