@@ -101,7 +101,7 @@ const editProfileHandler = async (event) => {
             alert("Failed to update data");
         }
     });
-=======
+}
 const signupHandler = async (event) => {
     event.preventDefault();
     try {
