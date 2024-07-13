@@ -1,7 +1,7 @@
 {{#if loggedIn}}
 <section class="user-section">
     <div class="img-container">
-        <img src="./imgs/profile-img-default.webp" alt="" class="img">
+        <img src="{{user.user_img}}" alt="" class="img">
     </div>
     <h3>{{user.first_name}} {{user.last_name}}</h3>
     <p class="user-job">{{user.job_title}}</p>
