@@ -1,4 +1,5 @@
 const loginForm = $(".login-form");
+const uploadForm = $("#upload-form");
 
 const logoutBtn = $("#logout-btn");
 
@@ -43,7 +44,34 @@ const logoutHandler = async () => {
     }
 };
 
+const uploadHandler = async (event) => {
+    event.preventDefault();
+
+    const imgFile = new FormData(uploadForm[0]);
+
+    await $.ajax({
+        url: "/api/user/upload",
+        method: "POST",
+        data: imgFile,
+        processData: false,
+        contentType: false,
+        success: (res) => {
+            console.log(res);
+            if(res) {
+                console.log(res);
+                console.log("Success");
+                $("#img-profile").attr("src", res.imgUrl);
+            }else{
+                alert("Cannot upload image");
+            }
+        },error: () => {
+            alert("Failed to upload image");
+        }
+    });
+}
+
 $(document).ready( () => {
     loginForm.on("submit", loginHandler);
+    uploadForm.on("submit", uploadHandler);
     logoutBtn.on("click", logoutHandler);
 });
