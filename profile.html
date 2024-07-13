@@ -33,15 +33,24 @@
                     <img src="./imgs/profile-img-default.webp" alt="" class="img">
                 </div>
                 <form id="upload-form" class="form-section" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="image" class="custom-input-file">Select your image</label>
-                        <input type="file" name="image" id="image">
+                    <div class="form-group image-form">
+                        <label for="image" class="custom-input-file" class="input">Select your image</label>
+                        <input type="file" name="image" class="image-input" id="image">
                     </div>
                     <button type="submit">Upload</button>
                 </form>
             </div>
-            <h3>Thinh Nguyen</h3>
-            <p class="user-job">Software Engineer</p>
+            <form class="edit-form">
+                <div class="form-group mb-1">
+                    <span class="label">Information</span>
+                    <input type="text" placeholder="Enter your first name" id="first-name" autocomplete="off">
+                    <input type="text" placeholder="Enter your last name" id="last-name" autocomplete="off">
+                    <input type="text" placeholder="Enter your desire job" id="job-title" autocomplete="off">
+                </div>
+                <div class="btn-container">
+                    <button class="btn" type="submit">Save</button>
+                </div>
+            </form>
         </section>
     </main>
 </body>
