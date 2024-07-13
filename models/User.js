@@ -55,7 +55,7 @@ User.init({
         allowNull: true,
     },
     user_img: {
-        type: DataTypes.BLOB("long"),
+        type: DataTypes.STRING,
         allowNull: true
     }},
     {

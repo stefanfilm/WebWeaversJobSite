@@ -1,4 +1,5 @@
 const { User } = require("../../models");
+const upload = require("../../middlewares/imgUpload");
 
 const router = require("express").Router();
 
@@ -23,7 +24,7 @@ router.post("/signup", async (req, res) => {
             password: req.body.password,
             email: req.body.email,
             job_title: req.body.job_title,
-            user_img: req.body.user_img
+            user_img: "https://drive.google.com/thumbnail?id=1GhnJzUBuK-Qartzz3tjo8h60xHNtQtuT&sz=1000"
         });
 
         req.session.save(() => {
@@ -31,7 +32,7 @@ router.post("/signup", async (req, res) => {
             req.session.user_id = user.id;
             res.status(200).json({ message: "Logged in" });
         });
-    }catch(error) {
+    } catch (error) {
         console.log("ERROR occurs while sign up\n", error);
         res.status(500).json({ message: "Internal error, please try again later" });
     }
@@ -69,6 +70,41 @@ router.post("/logout", async (req, res) => {
     } else {
         res.status(404).end();
     }
+});
+
+router.post("/upload", upload.single("image"), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send("No file uploaded");
+    }
+
+    const imgUrl = `/uploads/${req.file.filename}`;
+
+    try {
+        await User.update({ user_img: imgUrl }, { where: { id: req.session.user_id } });
+        res.status(200).json({ imgUrl, message: "Upload imgage successfully" });
+    } catch (error) {
+        console.log("ERROR occurs while uploading image");
+        res.status(500).json("Internal error, please try again later");
+    }
+});
+
+router.post("/profile", async (req, res) => {
+    try {
+        console.log("PROFILE");
+        console.log("req.body.first_name", req.body.first_name);
+        console.log("req.body.last_name", req.body.last_name);
+        await User.update({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            job_title: req.body.job_title
+        }, {
+            where: { id: req.session.user_id }
+        });
+    }catch(error) {
+        console.log("ERROR occurs while updating profile");
+        res.status(500).json("Internal error, please try again later");
+    }
+
 });
 
 module.exports = router;

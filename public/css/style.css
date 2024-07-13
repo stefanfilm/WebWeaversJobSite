@@ -70,6 +70,10 @@ p {
     cursor: pointer;
 }
 
+.home-link{
+    width: 100%;
+}
+
 /* IMAGE */
 .img-container {
     width: 70px;
@@ -106,12 +110,13 @@ nav {
 
 nav .list {
     display: flex;
-    justify-content: space-between;
-    width: 105px;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
 }
 
-nav .list .list-item:last-child {
-    margin: 0;
+nav .list .list-item {
+    margin-left: 20px;
 }
 
 nav .link {
@@ -131,9 +136,9 @@ nav .list-item .link:hover {
 }
 
 @media screen and (min-width: 768px) {
-    nav .list {
+    /* nav .list {
         width: 150px;
-    }
+    } */
 
     nav .link {
         font-size: 1.5rem;
@@ -150,7 +155,7 @@ form {
     margin-bottom: 10px;
 }
 
-.form-group{
+.form-group {
     position: relative;
     border: 1px solid black;
     padding: 20px 10px 0 10px;
@@ -158,11 +163,11 @@ form {
     margin-bottom: 40px;
 }
 
-.form-group:last-child{
+.form-group:last-child {
     margin: 0;
 }
 
-.label{
+.label {
     position: absolute;
     z-index: 10;
     top: -22px;
@@ -207,6 +212,10 @@ input {
     width: 100%;
 }
 
+.job-section h2{
+    margin-bottom: 20px;
+}
+
 .job-container {
     background-color: white;
     padding: 10px;
@@ -228,25 +237,59 @@ input {
 }
 
 /* USER SECTION */
-.user-section {
+.user-section{
     display: none;
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 @media screen and (min-width: 768px) {
     .user-section {
-        width: 200px;
-        height: 250px;
-        background-color: white;
-        border-radius: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
     }
 }
 
+/* USER EDITOR */
+.edit-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.user-editor .img-container {
+    width: 120px;
+    height: 120px;
+}
+
+.user-editor .image-form{
+    padding: 5px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.user-editor .image-input {
+    display: none;
+}
+
+.user-editor 
+
+.img-editor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
 /* FORM SECTION */
-.form-section, .signup-section {
+.form-section,
+.signup-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -262,6 +305,6 @@ main {
 }
 
 /* MARGIN */
-.mb-1{
+.mb-1 {
     margin-bottom: 10px;
 }
