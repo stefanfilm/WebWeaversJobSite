@@ -27,4 +27,15 @@ router.get("/signup", async (req, res) => {
     res.render("sign-up");
 });
 
+router.get("/profile", async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id);
+        const user = userData.get({ plain: true });
+        res.render("profile", {user});
+    }catch(error){
+        console.log(("Error occurs while accessing profile\n", error));
+        res.status(500).json({message: "Internal error, please try again later"});
+    }
+});
+
 module.exports = router;
