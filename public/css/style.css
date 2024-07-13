@@ -150,7 +150,7 @@ form {
     margin-bottom: 10px;
 }
 
-.form-group{
+.form-group {
     position: relative;
     border: 1px solid black;
     padding: 15px 10px 0 10px;
@@ -158,11 +158,11 @@ form {
     margin-bottom: 40px;
 }
 
-.form-group:last-child{
+.form-group:last-child {
     margin: 0;
 }
 
-.label{
+.label {
     position: absolute;
     z-index: 10;
     top: -21px;
@@ -228,25 +228,57 @@ input {
 }
 
 /* USER SECTION */
-.user-section {
+.user-section,
+.user-editor {
     display: none;
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 @media screen and (min-width: 768px) {
     .user-section {
-        width: 200px;
-        height: 250px;
-        background-color: white;
-        border-radius: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
     }
 }
 
+/* USER EDITOR */
+.user-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 60vh;
+}
+
+.user-editor .img-container {
+    width: 120px;
+    height: 120px;
+}
+
+.user-editor .form-group{
+    padding: 5px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.user-editor input {
+    display: none;
+}
+
+.img-editor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* FORM SECTION */
-.form-section, .signup-section {
+.form-section,
+.signup-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -262,6 +294,6 @@ main {
 }
 
 /* MARGIN */
-.mb-1{
+.mb-1 {
     margin-bottom: 10px;
 }
