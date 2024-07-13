@@ -107,7 +107,7 @@ nav {
 nav .list {
     display: flex;
     justify-content: space-between;
-    width: 105px;
+    width: 100%;
 }
 
 nav .list .list-item:last-child {
@@ -131,9 +131,9 @@ nav .list-item .link:hover {
 }
 
 @media screen and (min-width: 768px) {
-    nav .list {
+    /* nav .list {
         width: 150px;
-    }
+    } */
 
     nav .link {
         font-size: 1.5rem;

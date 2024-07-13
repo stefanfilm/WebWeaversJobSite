@@ -27,14 +27,31 @@ router.get("/signup", async (req, res) => {
     res.render("sign-up");
 });
 
-router.get("/profile", async (req, res) => {
+router.get("/profile", auth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
-        res.render("profile", {user});
-    }catch(error){
+        res.render("profile", { user, loggedIn: req.session.loggedIn });
+    } catch (error) {
         console.log(("Error occurs while accessing profile\n", error));
-        res.status(500).json({message: "Internal error, please try again later"});
+        res.status(500).json({ message: "Internal error, please try again later" });
+    }
+});
+
+router.get("/applications", auth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id);
+        const user = userData.get({ plain: true });
+        const jobApplicationData = await Job.findAll({ 
+            where: { user_id: req.session.user_id },
+            include: [{model: Recruiter}]
+        });
+        const jobApplications = jobApplicationData.map(jobApplication => jobApplication.get({ plain: true }));
+        console.log("jobApplications :>>", jobApplications);
+        res.render("applications", { user, jobApplications, loggedIn: true });
+    } catch (error) {
+        console.log("ERROR occurs while fetching job applications\n", error);
+        res.status(500).json({ message: "Internal error, please try again later" });
     }
 });
 

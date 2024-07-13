@@ -70,6 +70,10 @@ p {
     cursor: pointer;
 }
 
+.home-link{
+    width: 100%;
+}
+
 /* IMAGE */
 .img-container {
     width: 70px;
@@ -106,12 +110,13 @@ nav {
 
 nav .list {
     display: flex;
-    justify-content: space-between;
-    width: 105px;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
 }
 
-nav .list .list-item:last-child {
-    margin: 0;
+nav .list .list-item {
+    margin-left: 20px;
 }
 
 nav .link {
@@ -131,9 +136,9 @@ nav .list-item .link:hover {
 }
 
 @media screen and (min-width: 768px) {
-    nav .list {
+    /* nav .list {
         width: 150px;
-    }
+    } */
 
     nav .link {
         font-size: 1.5rem;
@@ -205,6 +210,10 @@ input {
 /* JOB */
 .job-section {
     width: 100%;
+}
+
+.job-section h2{
+    margin-bottom: 20px;
 }
 
 .job-container {
