@@ -27,14 +27,12 @@ const jobData = [
         job_description: "This is job description",
         salary: 150_000,
         recruiter_id: 1,
-        user_id: 1
     },
     {
         title: "Software engineer 5",
         job_description: "This is job description",
         salary: 150_000,
         recruiter_id: 1,
-        user_id: 1
     },
 ];
 
