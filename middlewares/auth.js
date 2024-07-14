@@ -1,6 +1,6 @@
 const auth = (req, res, next) => {
     if(!req.session.loggedIn){
-        res.render("/login");
+        res.render("login");
         return;
     };
 

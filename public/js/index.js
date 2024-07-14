@@ -1,12 +1,11 @@
 const loginForm = $(".login-form");
-
 const uploadForm = $("#upload-form");
 const editProfile = $(".edit-form");
-
 const signupForm = $(".signup-form");
 
-
 const logoutBtn = $("#logout-btn");
+const applyBtn = $("#apply-btn");
+const cancelBtn = $("#cancel-btn");
 
 const loginHandler = async (event) => {
     try {
@@ -82,7 +81,7 @@ const editProfileHandler = async (event) => {
     const last_name = $("#last-name").val();
     const job_title = $("#job-title").val();
 
-    if(first_name.length === 0 || last_name.length === 0 || job_title === 0){
+    if (first_name.length === 0 || last_name.length === 0 || job_title === 0) {
         alert("Input field cannot be empty");
         return;
     }
@@ -138,11 +137,51 @@ const signupHandler = async (event) => {
             }
         });
         if (res) window.location.replace("/");
-    }catch(error){
+    } catch (error) {
         // alert("Fail to sign up");
         console.log("SIGN UP fails");
     }
     cleanInput();
+}
+
+const applicationHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const jobId = $(".job-detail").data("jobId");
+        await $.ajax({
+            url: `/api/user/job/${jobId}`,
+            method: "POST",
+            success: res => {
+                if (res) {
+                    window.location.replace(`/job/${jobId}`);
+                }
+            }, error: xhr => {
+                alert(xhr.responseJSON.message);
+            }
+        });
+    } catch (error) {
+        alert("Internal error");
+    }
+}
+
+const cancelApplicationHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const jobId = $(".job-detail").data("jobId");
+        await $.ajax({
+            url: `/api/user/job/${jobId}`,
+            method: "DELETE",
+            success: res => {
+                if (res) {
+                    window.location.replace(`/job/${jobId}`);
+                }
+            }, error: xhr => {
+                alert("Cannot delete this application");
+            }
+        })
+    } catch (error) {
+        alert("Failed to cancle application");
+    }
 }
 
 const cleanInput = () => {
@@ -159,6 +198,8 @@ $(document).ready(() => {
     loginForm.on("submit", loginHandler);
     uploadForm.on("submit", uploadHandler);
     editProfile.on("submit", editProfileHandler);
-    logoutBtn.on("click", logoutHandler);
     signupForm.on("submit", signupHandler);
+    logoutBtn.on("click", logoutHandler);
+    applyBtn.on("click", applicationHandler);
+    cancelBtn.on("click", cancelApplicationHandler);
 });

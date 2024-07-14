@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User, Application } = require("../../models");
 const upload = require("../../middlewares/imgUpload");
 
 const router = require("express").Router();
@@ -41,16 +41,12 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ where: { username: req.body.username } });
-
         console.log("username :>> ", req.body.username);
         console.log("password :>> ", req.body.password);
         if (!user || !user.checkPassword(req.body.password)) {
             res.status(404).json({ message: "Username or Password is incorrect" });
             return;
         }
-
-
-
         req.session.save(() => {
             req.session.loggedIn = true;
             req.session.user_id = user.id;
@@ -76,9 +72,7 @@ router.post("/upload", upload.single("image"), async (req, res) => {
     if (!req.file) {
         return res.status(400).send("No file uploaded");
     }
-
     const imgUrl = `/uploads/${req.file.filename}`;
-
     try {
         await User.update({ user_img: imgUrl }, { where: { id: req.session.user_id } });
         res.status(200).json({ imgUrl, message: "Upload imgage successfully" });
@@ -90,9 +84,6 @@ router.post("/upload", upload.single("image"), async (req, res) => {
 
 router.post("/profile", async (req, res) => {
     try {
-        console.log("PROFILE");
-        console.log("req.body.first_name", req.body.first_name);
-        console.log("req.body.last_name", req.body.last_name);
         await User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -104,7 +95,29 @@ router.post("/profile", async (req, res) => {
         console.log("ERROR occurs while updating profile");
         res.status(500).json("Internal error, please try again later");
     }
+});
 
+router.post("/job/:id", async(req, res) => {
+    try{
+        await Application.create({
+            user_id: req.session.user_id,
+            job_id: req.params.id
+        });
+        res.status(200).json({message: "Apply job success"});
+    }catch(error){
+        console.log("ERROR occurs while applying job\n",error);
+        res.status(500).json({message: "Internal error"});
+    }
+});
+
+router.delete("/job/:id", async (req, res) => {
+    try{
+        await Application.destroy({where: {job_id: req.params.id}});
+        res.status(200).json({message: "Cancel application success!!"});
+    }catch(error) {
+        console.log("ERROR occurs while deleting job application\n",error);
+        res.status(500);
+    }
 });
 
 module.exports = router;

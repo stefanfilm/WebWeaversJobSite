@@ -2,6 +2,7 @@ const sequelize = require("../config/connection");
 const seedUsers = require("./userData");
 const seedRecruiters = require("./recruiterdata");
 const seedJobs = require("./jobdata");
+const seedApplications = require("./applicationdata");
 
 const seedAll = async () => {
     try {
@@ -17,6 +18,8 @@ const seedAll = async () => {
 
         await seedJobs();
         // console.log("Comment synced\n\n");
+
+        await seedApplications();
 
         process.exit(0);
     }catch(error){
