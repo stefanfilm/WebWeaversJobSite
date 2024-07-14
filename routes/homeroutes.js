@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const { application } = require('express');
 const auth = require("../middlewares/auth");
-const { Job, User, Recruiter } = require('../models');
+const { Job, User, Recruiter, Application } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
@@ -42,12 +43,23 @@ router.get("/applications", auth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
-        const jobApplicationData = await Job.findAll({
+
+        const jobApplicationData = await Application.findAll({
             where: { user_id: req.session.user_id },
-            include: [{ model: Recruiter }]
+            attributes: ["job_id"]
         });
-        const jobApplications = jobApplicationData.map(jobApplication => jobApplication.get({ plain: true }));
-        console.log("jobApplications :>>", jobApplications);
+
+        const jobApplications = []
+        for (let jobApplication of jobApplicationData) {
+            const jobData = await Job.findOne({
+                where: { id: jobApplication.job_id },
+                include: [{ model: Recruiter }]
+            });
+            jobApplications.push(jobData.get({ plain: true }));
+        }
+
+        console.log("jobApplications :>>", jobApplicationData);
+        console.log("jobApplications.job :>>", jobApplicationData.job);
         res.render("applications", { user, jobApplications, loggedIn: true });
     } catch (error) {
         console.log("ERROR occurs while fetching job applications\n", error);
@@ -57,9 +69,14 @@ router.get("/applications", auth, async (req, res) => {
 
 router.get("/job/:id", auth, async (req, res) => {
     try {
-        const jobData = await Job.findOne({where: {id: req.params.id}, include: [{model: Recruiter}]});
+        const jobData = await Job.findOne({ where: { id: req.params.id }, include: [{ model: Recruiter }] });
         const job = jobData.get({ plain: true });
-        res.render("job", { job, loggedIn: true });
+        const applicationData = await Application.findOne({ where: { user_id: req.session.user_id, job_id: req.params.id } });
+        let isApplied = false;
+        if (applicationData) {
+            isApplied = true;
+        }
+        res.render("job", { job, loggedIn: true, isApplied: isApplied });
     } catch (error) {
         console.log("ERROR occurs while fetching job data from /job/:id\n", error);
         res.status(200).json({ message: "Internal error, please try again" });
