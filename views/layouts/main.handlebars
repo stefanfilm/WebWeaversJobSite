@@ -20,16 +20,21 @@
                 <span class="logo">Web Weavers</span>
             </a>
             <ul class="list">
-                {{#unless loggedIn}}
+                {{#if (and isUser loggedIn)}}
+                <li class="list-item"><a href="/applications" class="link">Applications</a></li>
+                {{else if (and isRecruiter loggedIn)}}
+                <li class="list-item"><a href="/applications" class="link">+ New Job</a></li>
+                <li class="list-item"><a href="/applications" class="link">Dashboard</a></li>
+                {{/if}}
+                {{#if (not loggedIn)}}
                 <li class="list-item"><a href="/signup" class="link">Sign Up</a></li>
                 <li class="list-item"><a href="/login" class="link">Login</a></li>
                 {{else}}
-                <li class="list-item"><a href="/applications" class="link">Applications</a></li>
                 <li class="list-item"><a href="/profile" class="link">Profile</a></li>
                 <li class="list-item">
                     <button class="btn" id="logout-btn">Log out</button>
                 </li>
-                {{/unless}}
+                {{/if}}
             </ul>
         </nav>
     </header>
