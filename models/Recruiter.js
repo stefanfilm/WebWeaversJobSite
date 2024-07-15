@@ -1,7 +1,12 @@
 const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
 
-class Recruiter extends Model { }
+class Recruiter extends Model { 
+    checkPassword(password) {
+        return bcrypt.compareSync(password, this.password);
+    }
+}
 
 Recruiter.init({
     id: {
@@ -17,9 +22,31 @@ Recruiter.init({
     location: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    img: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 },
 {
+    hooks: {
+        beforeCreate: async (newRecruiter) => {
+            newRecruiter.password = await bcrypt.hash(newRecruiter.password, 10);
+            return newRecruiter;
+        }
+    },
     sequelize,
     freezeTableName: true,
     timestamps: false,

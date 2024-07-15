@@ -24,8 +24,12 @@
     <main>
         <section class="form-section">
             <form class="login-form">
-                <input type="text" placeholder="Username" id="username">
+                <input type="text" placeholder="Username" id="username" autocomplete="off">
                 <input type="password" placeholder="password" id="password">
+                <div class="check-box">
+                    <input type="checkbox" id="is-recruiter" name="recruiter">
+                    <label for="is-recruiter">Log in as recruiter</label>
+                </div>
                 <div class="btn-container">
                     <button class="btn" type="submit">Login</button>
                 </div>
