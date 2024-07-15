@@ -12,14 +12,13 @@ const loginHandler = async (event) => {
         event.preventDefault();
         const username = $("#username").val();
         const password = $("#password").val();
-        const isRecruiter = !!$("#is-recruiter").val();
         console.log(username);
         console.log(password);
         const res = await $.ajax({
             url: "/api/user/login",
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ username, password, isRecruiter })
+            data: JSON.stringify({ username, password })
         });
 
         if (res) document.location.replace("/");
@@ -109,9 +108,6 @@ const signupHandler = async (event) => {
         const username = $("#username").val();
         const password = $("#password").val();
         const confirmPassword = $("#confirm-password").val();
-        const isRecruiter = !!$("#company-name").val();
-        const location = $("#location").val();
-        
 
         if (password !== confirmPassword) {
             alert("Password does not match");
@@ -121,7 +117,6 @@ const signupHandler = async (event) => {
         const first_name = $("#first-name").val();
         const last_name = $("#last-name").val();
         const job_title = $("#job-title").val();
-        const company_name = $("#company-name").val();
 
         const res = await $.ajax({
             url: "/api/user/signup",
@@ -134,9 +129,6 @@ const signupHandler = async (event) => {
                 password,
                 email,
                 job_title,
-                company_name,
-                isRecruiter,
-                location,
             }),
             error: (xhr) => {
                 // const res = JSON.parse(xhr);
