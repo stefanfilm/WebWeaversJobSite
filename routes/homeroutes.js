@@ -10,14 +10,16 @@ router.get('/', async (req, res) => {
             const userData = await User.findByPk(req.session.user_id);
             user = userData.get({ plain: true });
         }
-        if (req.session.isRecruiter) {
+        if (req.session.recruiter_id) {
+            console.log(req.session.recruiter_id);
             const recruiterData = await Recruiter.findByPk(req.session.recruiter_id);
             recruiter = recruiterData.get({ plain: true });
         }
-
+        const loggedIn = !!user || !!recruiter;
         const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
         const jobs = jobData.map(job => job.get({ plain: true }));
-        res.render("home-page", { user, recruiter, jobs, isUser: req.session.isUser, isRecruiter: req.session.isRecruiter });
+        console.log(!!req.session.recruiter_id, loggedIn)
+        res.render("home-page", { user, recruiter, jobs, isUser: req.session.isUser, isRecruiter: !!req.session.recruiter_id, isLoggedIn: loggedIn });
     } catch (error) {
         console.error("ERROR occurs while displaying data on home page\n", error);
         res.status(500).json({ message: "Intenal error, please try again later" });

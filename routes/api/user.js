@@ -74,6 +74,9 @@ router.post("/login", async (req, res) => {
         req.session.save(() => {
             req.session.isRecruiter = isRecruiter;
             console.log("req.session.isRecruiter :>>", req.session.isRecruiter);
+            if (isRecruiter) {
+                req.session.recruiter_id = user.id
+            }
             req.session.isUser = !isRecruiter;
             console.log("req.session.isUser :>>", req.session.isUser);
             req.session.user_id = user.id;
