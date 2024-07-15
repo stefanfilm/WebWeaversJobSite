@@ -70,6 +70,10 @@ p {
     cursor: pointer;
 }
 
+.home-link{
+    width: 100%;
+}
+
 /* IMAGE */
 .img-container {
     width: 70px;
@@ -106,12 +110,13 @@ nav {
 
 nav .list {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
+    align-items: center;
 }
 
-nav .list .list-item:last-child {
-    margin: 0;
+nav .list .list-item {
+    margin-left: 20px;
 }
 
 nav .link {
@@ -165,7 +170,7 @@ form {
 .label {
     position: absolute;
     z-index: 10;
-    top: -21px;
+    top: -22px;
     left: 15px;
     padding: 10px;
     padding-bottom: 0;
@@ -179,6 +184,17 @@ input {
     border: 0;
     border-radius: 10px;
     margin-bottom: 10px;
+}
+
+.check-box{
+    display: flex;
+    align-items: center;
+}
+
+.check-box input{
+    width: auto;
+    margin: 0;
+    margin-right: 5px;
 }
 
 /* BUTTON */
@@ -207,6 +223,10 @@ input {
     width: 100%;
 }
 
+.job-section h2{
+    margin-bottom: 20px;
+}
+
 .job-container {
     background-color: white;
     padding: 10px;
@@ -219,6 +239,20 @@ input {
 
 .job-list .list-item {
     margin-bottom: 15px;
+}
+
+.job-detail{
+    width: 100%;
+}
+
+.job-detail:hover{
+    background-color: white;
+    color: black;
+}
+
+.job-title-container{
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) {
