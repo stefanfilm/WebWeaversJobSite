@@ -1,5 +1,5 @@
 const auth = (req, res, next) => {
-    if(!req.session.loggedIn){
+    if(!req.session.isUser && !req.session.isRecruiter){
         res.render("login");
         return;
     };
