@@ -14,4 +14,16 @@ function formatDate(dateString) {
     return `${mm}/${dd}/${yyyy}`;
 }
 
-module.exports = {formatSalary, formatDate};
+function and(c1, c2){
+    return c1 && c2;
+}
+
+function or(c1, c2){
+    return c1 || c2;
+}
+
+function not(c){
+    return !c;
+}
+
+module.exports = {formatSalary, formatDate, and, or, not};
