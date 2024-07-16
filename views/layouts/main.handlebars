@@ -15,11 +15,36 @@
 
 <body>
     <header>
-        <nav>
-            <a href="/" class="link home-link">
-                <span class="logo">Web Weavers</span>
+        <nav class="navbar">
+            <a href="/" class="">
+                <div class="navbar-brand">
+                    <div class="logo">
+                        <img src="/imgs/Headerlogo.png" alt="Logo">
+                    </div>
+                </div>
             </a>
-            <ul class="list">
+            <div class="navbar-items">
+                <div class="dropdown">
+                    <button class="dropbtn"> <i class="fa-solid fa-bars"> </i> </button>
+                    <div class="dropdown-content">
+                        {{#if (and isUser loggedIn)}}
+                        <a href="/applications">Applications</a>
+                        {{else if (and isRecruiter loggedIn)}}
+                        {{!-- need route for new job post --}}
+                        <a href="/newjob">New Job Post</a>
+                        <a href="/dashboard">Dashboard</a>
+                        {{/if}}
+                        {{#if (not loggedIn)}}
+                        <a href="/login" class="btn">Sign In</a>
+                        <a href="/signup" class="btn">Sign Up</a>
+                        {{else}}
+                        <a href="/profile">My Profile</a>
+                        <button class="btn" id="logout-btn">Log out</button>
+                        {{/if}}
+                    </div>                    
+                </div>
+            </div>
+            {{!-- <ul class="list">
                 {{#if (and isUser loggedIn)}}
                 <li class="list-item"><a href="/applications" class="link">Applications</a></li>
                 {{else if (and isRecruiter loggedIn)}}
@@ -35,7 +60,7 @@
                     <button class="btn" id="logout-btn">Log out</button>
                 </li>
                 {{/if}}
-            </ul>
+            </ul> --}}
         </nav>
     </header>
     <main>
@@ -43,6 +68,8 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/js/logic.js"></script>
+    <script src="https://kit.fontawesome.com/d9610fc50b.js" crossorigin="anonymous"></script>
     <script src="/js/index.js"></script>
 </body>
 
