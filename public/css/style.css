@@ -62,7 +62,7 @@ p {
     text-decoration: none;
 }
 
-.link--job {
+.link--job, .sign-up-link {
     color: black;
 }
 
@@ -70,8 +70,13 @@ p {
     cursor: pointer;
 }
 
-.home-link{
-    width: 100%;
+.sign-up-link{
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.sign-up-link:hover{
+    text-decoration: underline;
 }
 
 /* IMAGE */
@@ -136,9 +141,9 @@ nav .list-item .link:hover {
 }
 
 @media screen and (min-width: 768px) {
-    /* nav .list {
-        width: 150px;
-    } */
+    nav .list {
+        width: 65%;
+    }
 
     nav .link {
         font-size: 1.5rem;
@@ -184,6 +189,17 @@ input {
     border: 0;
     border-radius: 10px;
     margin-bottom: 10px;
+}
+
+.check-box{
+    display: flex;
+    align-items: center;
+}
+
+.check-box input{
+    width: auto;
+    margin: 0;
+    margin-right: 5px;
 }
 
 /* BUTTON */
@@ -237,6 +253,11 @@ input {
 .job-detail:hover{
     background-color: white;
     color: black;
+}
+
+.job-title-container{
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) {

@@ -54,7 +54,7 @@ User.init({
         type: DataTypes.STRING,
         allowNull: true,
     },
-    user_img: {
+    img: {
         type: DataTypes.STRING,
         allowNull: true
     }},
