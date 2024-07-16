@@ -10,26 +10,33 @@
 
 <body>
     <header>
-        <nav>
-            <a href="/" class="link">
-                <span class="logo">Web Weavers</span>
-            </a>
-            <ul class="list">
-                <!-- <li class="list-item"><a href="#" class="link">Sign Up</a></li>
-                <li class="list-item"><a href="#" class="link">Sign In</a></li> -->
-                <!-- <li class="list-item" style="display: none;"><button class="btn">Log out</button></li> -->
-            </ul>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <div class="logo">
+                    <img src="./imgs/Headerlogo.png" alt="Logo">
+                </div>
+            </div>
+            <div class="navbar-items">
+                <a href="login.html" class="btn">Sign In</a>
+                <a href="signup.html" class="btn">Sign Up</a>
+                <div class="dropdown">
+                    <button class="dropbtn"> <i class="fa-solid fa-bars"> </i> </button>
+                    <div class="dropdown-content">
+                        <a href="profile.html">My Profile</a>
+                        <a href="#">New Job Post</a>
+                        <a href="#">Dashboard</a>
+                        <a href="#">Applications</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
     <main>
         <section class="form-section">
             <form class="login-form">
-                <input type="text" placeholder="Username" id="username" autocomplete="off">
+                <input type="text" placeholder="Username" id="username">
                 <input type="password" placeholder="password" id="password">
-                <div class="check-box">
-                    <input type="checkbox" id="is-recruiter" name="recruiter">
-                    <label for="is-recruiter">Log in as recruiter</label>
-                </div>
                 <div class="btn-container">
                     <button class="btn" type="submit">Login</button>
                 </div>
@@ -37,6 +44,9 @@
             <p>You don't have account? <a href="./signup.html" class="link">Sign Up</a> here</p>
         </section>
     </main>
+    <script src="logic.js"></script>
+    <script src="https://kit.fontawesome.com/d9610fc50b.js" crossorigin="anonymous"></script>
+  
 </body>
 
 </html>
