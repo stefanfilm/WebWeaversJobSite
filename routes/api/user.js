@@ -1,6 +1,5 @@
 const { User, Job, Application, Recruiter } = require("../../models");
 const upload = require("../../middlewares/imgUpload");
-const isRecruiter = require("../../middlewares/isRecruiter");
 
 const router = require("express").Router();
 
@@ -104,9 +103,9 @@ router.post("/upload", upload.single("image"), async (req, res) => {
     const imgUrl = `/uploads/${req.file.filename}`;
     try {
         if (req.session.isRecruiter)
-            await Recruiter.update({ user_img: imgUrl }, { where: { id: req.session.user_id } });
+            await Recruiter.update({ img: imgUrl }, { where: { id: req.session.user_id } });
         else
-            await User.update({ user_img: imgUrl }, { where: { id: req.session.user_id } });
+            await User.update({ img: imgUrl }, { where: { id: req.session.user_id } });
 
         res.status(200).json({ imgUrl, message: "Upload imgage successfully" });
     } catch (error) {

@@ -155,9 +155,11 @@ router.get("/dashboard", auth, async (req, res) => {
         const userData = await Recruiter.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
         const jobData = await Job.findAll({ where: { recruiter_id: req.session.user_id } });
-        const jobs = jobData.map(job => job.get({ plain: true }));
-        jobs.isRecruiter = req.session.isRecruiter;
-
+        let jobs = jobData.map(job => job.get({ plain: true }));        
+        jobs = jobs.map(job => {
+            job.isRecruiter = req.session.isRecruiter;
+            return job;
+        });    
         res.render("dashboard", {
             user,
             jobs,

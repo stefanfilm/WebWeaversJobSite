@@ -8,7 +8,6 @@ const userData = [
         password: "asdasdasd",
         email: "thinh@mail.com",
         job_title: "software engineer",
-        user_img: "https://drive.google.com/thumbnail?id=1GhnJzUBuK-Qartzz3tjo8h60xHNtQtuT&sz=1000"
     },
     {
         first_name: "Stefan",
@@ -17,7 +16,6 @@ const userData = [
         password: "asdasdasd",
         email: "stefan@mail.com",
         job_title: "software engineer",
-        user_img: "https://drive.google.com/thumbnail?id=1GhnJzUBuK-Qartzz3tjo8h60xHNtQtuT&sz=1000"
     }
 ];
 

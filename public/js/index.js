@@ -77,8 +77,6 @@ const uploadHandler = async (event) => {
                 console.log("Success");
                 $("#img-profile").attr("src", res.imgUrl);
                 window.location.replace("/profile");
-            } else {
-                alert("Cannot upload image");
             }
         }, error: () => {
             alert("Failed to upload image");

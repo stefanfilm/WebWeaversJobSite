@@ -17,7 +17,7 @@ body {
     background-color: #f5f2ee;
     font-size: 1.125rem;
     margin: 0 auto;
-    max-width: 1400px;
+    max-width: 1400px;    
 }
 
 h2,
@@ -372,6 +372,16 @@ textarea{
 /* JOB */
 .job-section {
     width: 100%;
+}
+
+.job-editor-section{
+    width: 100%;
+}
+
+.candidate-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .job-container {
