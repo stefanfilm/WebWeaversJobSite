@@ -37,7 +37,8 @@ Recruiter.init({
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: "/imgs/profile-img-default.webp"
     }
 },
 {
