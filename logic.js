@@ -1,14 +1,16 @@
-$(document).ready(function() {
-    $('.view-details').click(function() {
-        $(this).parents('.job-listing').find('.job-description').slideToggle();
+document.addEventListener("DOMContentLoaded", function() {
+    var dropdownBtn = document.querySelector('.dropdown .dropbtn');
+    var dropdown = document.querySelector('.dropdown');
+
+    dropdownBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevents the dropdown from closing immediately
+        dropdown.classList.toggle('active');
     });
 
-    $('.close').click(function() {
-        $(this).parent('.job-description').slideUp();
-    });
-
-    $('.apply-job').click(function() {
-        
-        alert('Apply button clicked!');
+    // Close the dropdown if the user clicks outside of it
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
     });
 });
