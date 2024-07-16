@@ -12,17 +12,24 @@ const loginHandler = async (event) => {
         event.preventDefault();
         const username = $("#username").val();
         const password = $("#password").val();
-        const isRecruiter = !!$("#is-recruiter").val();
-        console.log(username);
-        console.log(password);
+        const isRecruiter = $("#is-recruiter").prop("checked");
         const res = await $.ajax({
             url: "/api/user/login",
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ username, password, isRecruiter })
+            data: JSON.stringify({ username, password, isRecruiter }),
+            success: res => {
+                console.log(res);
+                if(res){
+
+                }else{
+                    alert("username or password is incorrect!");
+                }
+            }
         });
 
-        if (res) document.location.replace("/");
+        console.log(res);
+        // if (res) document.location.replace("/");
     } catch (error) {
         alert("Username or Password is incorrect");
     }
