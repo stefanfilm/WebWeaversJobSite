@@ -16,14 +16,18 @@
     {{/if}}
 </div>
 {{else}}
-<div class="job-container job-detail" data-job-id="{{job.id}}">
+<div class="job-container job-detail job-editor" data-job-id="{{job.id}}">
     <div class="job-title-container">
         <h2>{{job.title}}</h2>
     </div>
-    <div class="candidate-container">
+    <div class="editor-group">
+        <a href="/dashboard/job/{{job.id}}" class="link btn">Edit</a>
+        <button class="btn">Delete</button>
+    </div>
+</div>
+<div class="candidate-container">
         {{#each candidates as |candidate|}}
         {{> candidate-details}}
         {{/each}}
     </div>
-</div>
 {{/if}}

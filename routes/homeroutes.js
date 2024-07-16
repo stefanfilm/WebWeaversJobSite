@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
 
         const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
         const jobs = jobData.map(job => job.get({ plain: true }));
+        jobs.isRecruiter = req.session.isRecruiter;
         res.render("home-page", {
             user,
             jobs,
@@ -155,6 +156,7 @@ router.get("/dashboard", auth, async (req, res) => {
         const user = userData.get({ plain: true });
         const jobData = await Job.findAll({ where: { recruiter_id: req.session.user_id } });
         const jobs = jobData.map(job => job.get({ plain: true }));
+        jobs.isRecruiter = req.session.isRecruiter;
 
         res.render("dashboard", {
             user,
@@ -181,7 +183,7 @@ router.get("/dashboard/job/:id", auth, async (req, res) => {
         const job = jobData.get({ plain: true });
         const candidates = candidateData.map(candidate => candidate.get({ plain: true }));
 
-        res.render("dashboard-job", {
+        res.render("job", {
             job,
             candidates,
             isUser: req.session.isUser,
