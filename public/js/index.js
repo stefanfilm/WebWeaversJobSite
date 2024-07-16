@@ -2,10 +2,13 @@ const loginForm = $(".login-form");
 const uploadForm = $("#upload-form");
 const editProfile = $(".edit-form");
 const signupForm = $(".signup-form");
+const newJobForm = $("#new-job-form");
 
 const logoutBtn = $("#logout-btn");
 const applyBtn = $("#apply-btn");
 const cancelBtn = $("#cancel-btn");
+
+const salaryInput = $("#salary");
 
 const loginHandler = async (event) => {
     try {
@@ -20,9 +23,9 @@ const loginHandler = async (event) => {
             data: JSON.stringify({ username, password, isRecruiter }),
             success: res => {
                 console.log(res);
-                if(res){
-
-                }else{
+                if (res) {
+                    window.location.replace("/");
+                } else {
                     alert("username or password is incorrect!");
                 }
             }
@@ -118,7 +121,7 @@ const signupHandler = async (event) => {
         const confirmPassword = $("#confirm-password").val();
         const isRecruiter = !!$("#company-name").val();
         const location = $("#location").val();
-        
+
 
         if (password !== confirmPassword) {
             alert("Password does not match");
@@ -199,6 +202,42 @@ const cancelApplicationHandler = async (event) => {
     }
 }
 
+const newJobHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const title = $("#new-job-title").val();
+        const job_description = $("#new-job-description").val();
+        const salary = parseFloat($("#salary").val());
+
+        await $.ajax({
+            url: "/api/user/newjob",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ title, salary, job_description }),
+            success: res => {
+                if (res) {
+                    window.location.replace("/dashboard");
+                } else {
+                    alert("Fail to create a new job post");
+                }
+            }
+        });
+    } catch (error) {
+        alert("Something went wrong, please try again later!");
+    }
+}
+
+const salaryInputHandler = (event) => {
+    const key = event.key;
+    const isNumber = /^[0-9]$/;
+    const isNavigationKey = ["Backspace", "ArrowLeft", "ArrowRight", "Delete", "Tab", "."].includes(key);
+
+    if (!isNumber.test(key) && !isNavigationKey) {
+        event.preventDefault();
+        return;
+    };
+}
+
 const cleanInput = () => {
     $("#email").val("");
     $("#username").val("");
@@ -214,7 +253,9 @@ $(document).ready(() => {
     uploadForm.on("submit", uploadHandler);
     editProfile.on("submit", editProfileHandler);
     signupForm.on("submit", signupHandler);
+    newJobForm.on("submit", newJobHandler);
     logoutBtn.on("click", logoutHandler);
     applyBtn.on("click", applicationHandler);
     cancelBtn.on("click", cancelApplicationHandler);
+    salaryInput.on("keydown", salaryInputHandler);
 });
