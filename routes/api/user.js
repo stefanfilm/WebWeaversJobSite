@@ -47,6 +47,7 @@ router.post("/signup", async (req, res) => {
         req.session.save(() => {
             req.session.isUser = !isRecruiter;
             req.session.isRecruiter = isRecruiter;
+            req.session.loggedIn = true;
             req.session.user_id = newUser.id;
             res.status(200).json({ message: "Logged in" });
         });
@@ -73,12 +74,10 @@ router.post("/login", async (req, res) => {
 
         req.session.save(() => {
             req.session.isRecruiter = isRecruiter;
-            console.log("req.session.isRecruiter :>>", req.session.isRecruiter);
-            if (isRecruiter) {
-                req.session.recruiter_id = user.id
-            }
+            // console.log("req.session.isRecruiter :>>", req.session.isRecruiter);
             req.session.isUser = !isRecruiter;
-            console.log("req.session.isUser :>>", req.session.isUser);
+            req.session.loggedIn = true;
+            // console.log("req.session.isUser :>>", req.session.isUser);
             req.session.user_id = user.id;
             res.status(200).json({ message: "Logged in" });
         });
