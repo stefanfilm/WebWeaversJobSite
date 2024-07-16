@@ -1,0 +1,19 @@
+<section class="user-section">
+    <div class="img-container">
+        <img src="{{user.img}}" alt="" class="img">
+    </div>
+    {{#if isUser}}
+    <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <p class="user-job">{{user.job_title}}</p>
+    {{else}}
+    <h3>{{user.company_name}}</h3>
+    {{/if}}
+</section>
+<section class="job-section">
+    <h2>Your Applications</h2>
+    <ul class="list job-list">
+        {{#each jobs as |job|}}
+        {{> job-details}}
+        {{/each}}
+    </ul>
+</section>
