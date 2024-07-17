@@ -10,7 +10,13 @@
     {{/if}}
 </section>
 <section class="job-section">
-    <h2>Your Applications</h2>
+    <h2>
+        {{#if isUser}}
+        Your Applications
+        {{else}}
+        Your Job Posts
+        {{/if}}
+    </h2>
     <ul class="list job-list">
         {{#each jobs as |job|}}
         {{> job-details}}

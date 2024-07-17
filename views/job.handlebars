@@ -17,13 +17,14 @@
 </div>
 {{else}}
 <section class="job-editor-section">
-    <div class="job-container job-detail job-editor" data-job-id="{{job.id}}">
+    <div class="job-container job-detail {{#if isBelongTo}}job-editor{{/if}}" data-job-id="{{job.id}}">
         <div class="job-title-container">
             <h2>{{job.title}}</h2>
         </div>
+        {{#if isBelongTo}}
         <div class="editor-group">
             <a href="/dashboard/job/{{job.id}}" class="link btn">Edit</a>
-            <button class="btn">Delete</button>
+            <button class="btn" id="delete-btn">Delete</button>
         </div>
     </div>
     <div class="candidate-container">
@@ -31,5 +32,14 @@
         {{> candidate-details}}
         {{/each}}
     </div>
+    {{else}}
+    <div class="job-info-container">
+        <p class="company-name">Company: {{job.recruiter.company_name}}</p>
+        <p class="job-location">Location: {{job.recruiter.location}}</p>
+        <p class="salary">{{formatSalary job.salary}}</p>
+        <p>{{job.job_description}}</p>
+    </div>
+    </div>
+    {{/if}}
 </section>
 {{/if}}

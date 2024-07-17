@@ -7,6 +7,7 @@ const newJobForm = $("#new-job-form");
 const logoutBtn = $("#logout-btn");
 const applyBtn = $("#apply-btn");
 const cancelBtn = $("#cancel-btn");
+const deleteBtn = $("#delete-btn");
 
 const salaryInput = $("#salary");
 
@@ -236,6 +237,25 @@ const salaryInputHandler = (event) => {
     };
 }
 
+const deleteHandler = async () => {
+    try {
+        const jobId = $(".job-detail").data("jobId");
+        await $.ajax({
+            url: `/api/user/job/${jobId}`,
+            method: "DELETE",
+            success: res => {
+                if (res) {
+                    window.location.replace("/dashboard");
+                }
+            }, error: xhr => {
+                alert(xhr.responseJSON.message);
+            }
+        })
+    } catch (error) {
+        console.log("Failed to delete");
+    }
+}
+
 const cleanInput = () => {
     $("#email").val("");
     $("#username").val("");
@@ -255,5 +275,6 @@ $(document).ready(() => {
     logoutBtn.on("click", logoutHandler);
     applyBtn.on("click", applicationHandler);
     cancelBtn.on("click", cancelApplicationHandler);
+    deleteBtn.on("click", deleteHandler);
     salaryInput.on("keydown", salaryInputHandler);
 });

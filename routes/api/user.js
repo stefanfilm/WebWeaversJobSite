@@ -157,6 +157,22 @@ router.post("/job/:id", async (req, res) => {
     }
 });
 
+router.post("/newjob", async (req, res) => {
+    try {
+        await Job.create({
+            title: req.body.title,
+            job_description: req.body.job_description,
+            salary: req.body.salary,
+            recruiter_id: req.session.user_id
+        });
+
+        res.status(200).json({ message: "new job post is created" });
+    } catch (error) {
+        console.error("ERROR occurs while creating new job post");
+        res.status(500).json({ message: "Internal error" });
+    }
+});
+
 router.put("/job/:id", async (req, res) => {
     try {
         const job = await Job.update({
@@ -190,19 +206,15 @@ router.delete("/job/:id", async (req, res) => {
     }
 });
 
-router.post("/newjob", async (req, res) => {
+router.delete("/dashboard/job/:id", async (req, res) => {
     try {
-        await Job.create({
-            title: req.body.title,
-            job_description: req.body.job_description,
-            salary: req.body.salary,
-            recruiter_id: req.session.user_id
-        });
+        const job = await Job.destroy({ where: { id: req.params.id } });
+        if (!job) return res.status(404).json({ message: "Cannot find a job with given id" });
 
-        res.status(200).json({ message: "new job post is created" });
+        res.status(200).json({ message: "Delete job success!!" });
     } catch (error) {
-        console.error("ERROR occurs while creating new job post");
-        res.status(500).json({ message: "Internal error" });
+        console.error("ERROR occurs while deleting job\n", error);
+        res.status(500).json("Internal error");
     }
 });
 
