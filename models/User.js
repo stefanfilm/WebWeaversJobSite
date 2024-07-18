@@ -18,16 +18,10 @@ User.init({
     first_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            len: [5, 30]
-        }
     },
     last_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            len: [5, 30]
-        }
     },
     username: {
         type: DataTypes.STRING,

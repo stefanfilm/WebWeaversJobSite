@@ -114,25 +114,27 @@ const editProfileHandler = async (event) => {
 const signupHandler = async (event) => {
     event.preventDefault();
     try {
+        // account information
         const email = $("#email").val();
         const username = $("#username").val();
         const password = $("#password").val();
         const confirmPassword = $("#confirm-password").val();
-        const isRecruiter = !!$("#company-name").val();
-        const location = $("#location").val();
 
-
-        if (password !== confirmPassword) {
-            alert("Password does not match");
-            return;
-        }
-
+        // personal or organization information
         const first_name = $("#first-name").val();
         const last_name = $("#last-name").val();
         const job_title = $("#job-title").val();
+        const isRecruiter = $("#company-name").val();
         const company_name = $("#company-name").val();
+        const location = $("#location").val();
 
-        const res = await $.ajax({
+        if (!accountValidation(username, password, confirmPassword)) return;
+        if (!userInfoValidation(first_name, last_name)) return;
+        if (!recruiterValidation(company_name, location)) return;
+
+        console.log("isRecruiter :>>", isRecruiter);
+
+        await $.ajax({
             url: "/api/user/signup",
             method: "POST",
             contentType: "application/json",
@@ -146,14 +148,14 @@ const signupHandler = async (event) => {
                 company_name,
                 isRecruiter,
                 location,
-            }),
+            }), success: res => {
+                if (res)
+                    window.location.replace("/");
+            },
             error: (xhr) => {
-                // const res = JSON.parse(xhr);
-                // alert(res);
                 alert(xhr.responseJSON.message);
             }
         });
-        if (res) window.location.replace("/");
     } catch (error) {
         // alert("Fail to sign up");
         console.log("SIGN UP fails");
@@ -264,6 +266,56 @@ const cleanInput = () => {
     $("#first-name").val("");
     $("#last-name").val("");
     $("#job-title").val("");
+}
+
+const accountValidation = (username, password, confirmPassword) => {
+    if (username.length < 6) {
+        alert("Username must have at least 5 characters");
+        return false;
+    }
+
+    if (password.length < 6) {
+        alert("Password must have at least 5 characters");
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Password does not match");
+        return false;
+    }
+
+    return true;
+}
+
+const userInfoValidation = (firstName, lastName) => {
+    if (firstName === undefined) return true;
+    console.log("userInfoValidation: ", firstName);
+
+    if (firstName.length === 0) {
+        alert("First name cannot be empty");
+        return false;
+    }
+    if (lastName.length === 0) {
+        alert("Last name cannot be empty");
+        return false;
+    }
+
+    return true;
+}
+
+const recruiterValidation = (company_name, location) => {
+    if (company_name === undefined) return true;
+
+    if (company_name.length === 0) {
+        alert("Company name cannot be empty");
+        return false;
+    }
+    if (location.length === 0) {
+        alert("Location cannot be empty");
+        return false;
+    }
+
+    return true;
 }
 
 $(document).ready(() => {
