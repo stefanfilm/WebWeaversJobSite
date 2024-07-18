@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { json } = require('sequelize');
 const auth = require("../middlewares/auth");
 const { Job, User, Recruiter, Application } = require('../models');
 
@@ -15,14 +16,17 @@ router.get('/', async (req, res) => {
         }
 
         const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
-        const jobs = jobData.map(job => job.get({ plain: true }));
-        jobs.isRecruiter = req.session.isRecruiter;
+        const jobs = jobData.map(job => {
+            const jobPlain = job.get({ plain: true });
+            jobPlain.isHomePage = true;
+            return jobPlain;
+        });
         res.render("home-page", {
             user,
             jobs,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            loggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
         });
     } catch (error) {
         console.error("ERROR occurs while displaying data on home page\n", error);
@@ -148,7 +152,7 @@ router.get("/job/:id", auth, async (req, res) => {
             isRecruiter: req.session.isRecruiter,
             loggedIn: req.session.loggedIn,
             isApplied: isApplied,
-            isBelongTo: isBelongTo
+            isJobPage: true,
         });
     } catch (error) {
         console.log("ERROR occurs while fetching job data from /job/:id\n", error);
@@ -166,7 +170,7 @@ router.get("/dashboard", auth, async (req, res) => {
             jobPlain.isRecruiter = req.session.isRecruiter;
             return jobPlain;
         });
-        
+
         res.render("dashboard", {
             user,
             jobs,
@@ -212,6 +216,25 @@ router.get("/newjob", auth, (req, res) => {
         isRecruiter: req.session.isRecruiter,
         loggedIn: req.session.loggedIn
     });
+});
+
+router.get("/dashboard/edit/job/:id", async (req, res) => {
+    try {
+        const jobData = await Job.findByPk(req.params.id);
+
+        if (!jobData) return res.status(404).json({ message: "Cannot find a job with given id" });
+
+        const job = jobData.get({ plain: true });
+        res.render("job-editor", {
+            job,
+            isUser: req.session.isUser,
+            isRecruiter: req.session.isRecruiter,
+            loggedIn: req.session.loggedIn
+        });
+    }catch(error){
+        console.error("ERROR occurs while loading data from /dashboard/edit/job\n", error);
+        res.status(500).json({message: "Internal error"});
+    }
 });
 
 module.exports = router;
