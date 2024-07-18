@@ -15,14 +15,17 @@ router.get('/', async (req, res) => {
         }
 
         const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
-        const jobs = jobData.map(job => job.get({ plain: true }));
-        jobs.isRecruiter = req.session.isRecruiter;
+        const jobs = jobData.map(job => {
+            const jobPlain = job.get({ plain: true });
+            jobPlain.isHomePage = true;
+            return jobPlain;
+        });
         res.render("home-page", {
             user,
             jobs,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            loggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
         });
     } catch (error) {
         console.error("ERROR occurs while displaying data on home page\n", error);
@@ -148,7 +151,7 @@ router.get("/job/:id", auth, async (req, res) => {
             isRecruiter: req.session.isRecruiter,
             loggedIn: req.session.loggedIn,
             isApplied: isApplied,
-            isBelongTo: isBelongTo
+            isJobPage: true,
         });
     } catch (error) {
         console.log("ERROR occurs while fetching job data from /job/:id\n", error);
@@ -166,7 +169,7 @@ router.get("/dashboard", auth, async (req, res) => {
             jobPlain.isRecruiter = req.session.isRecruiter;
             return jobPlain;
         });
-        
+
         res.render("dashboard", {
             user,
             jobs,
