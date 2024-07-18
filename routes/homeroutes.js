@@ -16,12 +16,13 @@ router.get('/', async (req, res) => {
 
         const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
         const jobs = jobData.map(job => job.get({ plain: true }));
+        jobs.isRecruiter = req.session.isRecruiter;
         res.render("home-page", {
             user,
             jobs,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn
         });
     } catch (error) {
         console.error("ERROR occurs while displaying data on home page\n", error);
@@ -33,19 +34,17 @@ router.get("/login", async (req, res) => {
     res.render("login", {
         isUser: req.session.isUser,
         isRecruiter: req.session.isRecruiter,
-        isLoggedIn: req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 });
 
-// router.get("/login/recruiter", async (req, res) => {
-//     res.render("login", { isRecruiter: true });
-// });
-
 router.get("/signup", async (req, res) => {
+    console.log("req.session.isUser :>>", req.session.isUser);
+    console.log("req.session.isRecruiter :>>", req.session.isRecruiter);
     res.render("sign-up", {
         isUser: req.session.isUser,
         isRecruiter: req.session.isRecruiter,
-        isLoggedIn: req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 });
 
@@ -53,7 +52,7 @@ router.get("/signup/user", async (req, res) => {
     res.render("sign-up", {
         isUser: true,
         isRecruiter: req.session.isRecruiter,
-        isLoggedIn: req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 });
 
@@ -61,7 +60,7 @@ router.get("/signup/recruiter", async (req, res) => {
     res.render("sign-up", {
         isUser: req.session.isUser,
         isRecruiter: true,
-        isLoggedIn: req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 })
 
@@ -69,7 +68,7 @@ router.get("/profile", auth, async (req, res) => {
     try {
 
         let userData;
-        if (isUser)
+        if (req.session.isUser)
             userData = await User.findByPk(req.session.user_id);
         else
             userData = await Recruiter.findByPk(req.session.user_id);
@@ -79,7 +78,7 @@ router.get("/profile", auth, async (req, res) => {
             user,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn
         });
     } catch (error) {
         console.log(("Error occurs while accessing profile\n", error));
@@ -97,21 +96,21 @@ router.get("/applications", auth, async (req, res) => {
             attributes: ["job_id"]
         });
 
-        const jobApplications = []
+        const jobs = [];
         for (let jobApplication of jobApplicationData) {
             const jobData = await Job.findOne({
                 where: { id: jobApplication.job_id },
                 include: [{ model: Recruiter }]
             });
-            jobApplications.push(jobData.get({ plain: true }));
+            jobs.push(jobData.get({ plain: true }));
         }
 
-        res.render("applications", {
+        res.render("dashboard", {
             user,
-            jobApplications,
+            jobs,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn
         });
     } catch (error) {
         console.log("ERROR occurs while fetching job applications\n", error);
@@ -134,12 +133,22 @@ router.get("/job/:id", auth, async (req, res) => {
                 isApplied = true;
             }
         }
+        let isBelongTo = false;
+        if (req.session.isRecruiter) {
+            isBelongTo = await Job.findOne({
+                where: {
+                    id: req.params.id,
+                    recruiter_id: req.session.user_id
+                }
+            }) ? true : false;
+        }
         res.render("job", {
             job,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn,
-            isApplied: isApplied
+            loggedIn: req.session.loggedIn,
+            isApplied: isApplied,
+            isBelongTo: isBelongTo
         });
     } catch (error) {
         console.log("ERROR occurs while fetching job data from /job/:id\n", error);
@@ -149,17 +158,21 @@ router.get("/job/:id", auth, async (req, res) => {
 
 router.get("/dashboard", auth, async (req, res) => {
     try {
-        const recruiterData = await Recruiter.findByPk(req.session.user_id);
-        const recruiter = recruiterData.get({ plain: true });
+        const userData = await Recruiter.findByPk(req.session.user_id);
+        const user = userData.get({ plain: true });
         const jobData = await Job.findAll({ where: { recruiter_id: req.session.user_id } });
-        const jobs = jobData.map(job => job.get({ plain: true }));
-
+        const jobs = jobData.map(job => {
+            const jobPlain = job.get({ plain: true })
+            jobPlain.isRecruiter = req.session.isRecruiter;
+            return jobPlain;
+        });
+        
         res.render("dashboard", {
-            recruiter,
+            user,
             jobs,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
         });
     } catch (error) {
         console.log("Error occurs while loading recruiter dashboard\n", error);
@@ -179,17 +192,26 @@ router.get("/dashboard/job/:id", auth, async (req, res) => {
         const job = jobData.get({ plain: true });
         const candidates = candidateData.map(candidate => candidate.get({ plain: true }));
 
-        res.render("dashboard-job", {
+        res.render("job", {
             job,
             candidates,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
-            isLoggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
+            isBelongTo: true,
         });
     } catch (error) {
         console.error("Error occurs while loading /dasboard/job\n", error);
         res.status(500).json({ message: "Internal error" });
     }
+});
+
+router.get("/newjob", auth, (req, res) => {
+    res.render("new-job", {
+        isUser: req.session.isUser,
+        isRecruiter: req.session.isRecruiter,
+        loggedIn: req.session.loggedIn
+    });
 });
 
 module.exports = router;
