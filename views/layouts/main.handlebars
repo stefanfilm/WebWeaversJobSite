@@ -23,6 +23,22 @@
                     </div>
                 </div>
             </a>
+                 <ul class="navbar-list" id="navbar-lists">
+        {{#if (and isUser loggedIn)}}
+        <li><a href="/applications">Applications</a></li>
+        {{else if (and isRecruiter loggedIn)}}
+        <li><a href="/newjob">New Job Post</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        {{/if}}
+        {{#if (not loggedIn)}}
+        <li><a href="/login" class="btn">Sign In</a></li>
+        <li><a href="/signup" class="btn">Sign Up</a></li>
+        {{else}}
+        <li><a href="/profile">My Profile</a></li>
+        <li><button class="btn" id="logout-btn">Log out</button></li>
+        {{/if}}
+    </ul>
+            <div class="navbar-toggle">
             <div class="navbar-items">
                 <div class="dropdown">
                     <button class="dropbtn"> <i class="fa-solid fa-bars"> </i> </button>
@@ -66,6 +82,12 @@
     <main>
         {{{body}}}
     </main>
+<footer>
+    <div class="copyright">
+        <p>&copy; 2024 WebWeavers. All rights reserved.</p>
+    </div>
+</footer>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/js/logic.js"></script>
