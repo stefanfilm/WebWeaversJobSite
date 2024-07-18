@@ -12,12 +12,20 @@
         </form>
     </div>
     <form class="edit-form">
+        {{#if isUser}}
         <div class="form-group mb-1">
             <span class="label">Information</span>
             <input type="text" placeholder="Enter your first name" id="first-name" autocomplete="off" value="{{user.first_name}}">
             <input type="text" placeholder="Enter your last name" id="last-name" autocomplete="off" value="{{user.last_name}}">
             <input type="text" placeholder="Enter your desire job" id="job-title" autocomplete="off" value="{{user.job_title}}">
         </div>
+        {{else}}
+        <div class="form-group mb-1">
+            <span class="label">Information</span>
+            <input type="text" placeholder="Enter your first name" id="company-name" autocomplete="off" value="{{user.company_name}}">
+            <input type="text" placeholder="Enter your last name" id="location" autocomplete="off" value="{{user.location}}">
+        </div>
+        {{/if}}
         <div class="btn-container">
             <button class="btn" type="submit">Save</button>
         </div>
