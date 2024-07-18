@@ -222,18 +222,35 @@ router.get("/dashboard/edit/job/:id", async (req, res) => {
     try {
         const jobData = await Job.findByPk(req.params.id);
 
-        if (!jobData) return res.status(404).json({ message: "Cannot find a job with given id" });
+        if (!jobData) {
+            res.status(404).render("404", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            return;
+        }
 
         const job = jobData.get({ plain: true });
+
+        if(job.recruiter_id !== req.session.user_id){
+            res.status(400).render("400", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            return;
+        }
+
         res.render("job-editor", {
             job,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
             loggedIn: req.session.loggedIn
         });
-    }catch(error){
+    } catch (error) {
         console.error("ERROR occurs while loading data from /dashboard/edit/job\n", error);
-        res.status(500).json({message: "Internal error"});
+        res.status(500).json({ message: "Internal error" });
     }
 });
 
