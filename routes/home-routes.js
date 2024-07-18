@@ -196,6 +196,8 @@ router.get("/dashboard/job/:id", auth, async (req, res) => {
         const job = jobData.get({ plain: true });
         const candidates = candidateData.map(candidate => candidate.get({ plain: true }));
 
+        console.log(candidates);
+
         res.render("job", {
             job,
             candidates,

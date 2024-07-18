@@ -340,8 +340,11 @@ textarea {
 
 .candidate-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: nowrap;
+}
+.candidate-container .user-section{
+    margin: 15px 20px;
 }
 
 .job-container {
