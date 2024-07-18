@@ -1,0 +1,13 @@
+<section class="job-editor-section">
+    <form id="job-editor-form" data-job-id="{{job.id}}">
+        <div class="form-group job-editor-form-group">
+            <input type="text" placeholder="Job Title" id="new-job-title" autocomplete="off" value="{{job.title}}">
+            <input type="text" placeholder="Salary" id="salary" autocomplete="off" value="{{job.salary}}">
+            <textarea name="new-job-description" id="new-job-description" class="job-description-text"
+                placeholder="Enter job description">{{job.job_description}}</textarea>
+        </div>
+        <div class="btn-container">
+            <button class="btn" type="submit">Save</button>
+        </div>
+    </form>
+</section>

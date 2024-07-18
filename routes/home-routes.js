@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { json } = require('sequelize');
 const auth = require("../middlewares/auth");
 const { Job, User, Recruiter, Application } = require('../models');
 
@@ -215,6 +216,25 @@ router.get("/newjob", auth, (req, res) => {
         isRecruiter: req.session.isRecruiter,
         loggedIn: req.session.loggedIn
     });
+});
+
+router.get("/dashboard/edit/job/:id", async (req, res) => {
+    try {
+        const jobData = await Job.findByPk(req.params.id);
+
+        if (!jobData) return res.status(404).json({ message: "Cannot find a job with given id" });
+
+        const job = jobData.get({ plain: true });
+        res.render("job-editor", {
+            job,
+            isUser: req.session.isUser,
+            isRecruiter: req.session.isRecruiter,
+            loggedIn: req.session.loggedIn
+        });
+    }catch(error){
+        console.error("ERROR occurs while loading data from /dashboard/edit/job\n", error);
+        res.status(500).json({message: "Internal error"});
+    }
 });
 
 module.exports = router;

@@ -173,13 +173,13 @@ router.post("/newjob", async (req, res) => {
     }
 });
 
-router.put("/job/:id", async (req, res) => {
+router.put("/dashboard/edit/job/:id", async (req, res) => {
     try {
         const job = await Job.update({
             title: req.body.title,
             job_description: req.body.job_description,
             salary: req.body.salary
-        }, { where: { recruiter_id: req.session.user_id } });
+        }, { where: { id: req.params.id } });
         if (!job) return res.status(404).json({ message: "Cannot find a job with given id" });
 
         res.status(200).json({ message: "Edit job post success" });
