@@ -1,13 +1,16 @@
-{{#if (or isUser isHomePage)}}
+{{#if (or isUser isJobPage)}}
 <div class="job-container job-detail" data-job-id="{{job.id}}">
     <div class="job-title-container">
         <h2>{{job.title}}</h2>
     </div>
     <div class="job-info-container">
-        <p class="company-name">Company: {{job.recruiter.company_name}}</p>
-        <p class="job-location">Location: {{job.recruiter.location}}</p>
-        <p class="salary">{{formatSalary job.salary}}</p>
-        <p>{{job.job_description}}</p>
+        <p class="company-name"><span class="bold">Company:</span> {{job.recruiter.company_name}}</p>
+        <p class="location"><span class="bold">Location:</span> {{job.recruiter.location}}</p>
+        <div class="job-description-container">
+            <p class="job-description-title"><span class="bold">Job Description</span></p>
+            <textarea class="job-description-content" disabled>{{job.job_description}}</textarea>
+        </div>
+        <p class="salary"><span class="bold">Salary:</span> {{formatSalary job.salary}}</p>
     </div>
     {{#if (and isUser isApplied)}}
     <button class="btn apply-btn" id="cancel-btn">Cancel Application</button>
@@ -21,7 +24,6 @@
         <div class="job-title-container">
             <h2>{{job.title}}</h2>
         </div>
-        {{#if isBelongTo}}
         <div class="editor-group">
             <a href="/dashboard/edit/job/{{job.id}}" class="link btn edit-link">Edit</a>
             <button class="btn" id="delete-btn">Delete</button>
@@ -32,14 +34,5 @@
         {{> candidate-details}}
         {{/each}}
     </div>
-    {{else}}
-    <div class="job-info-container">
-        <p class="company-name">Company: {{job.recruiter.company_name}}</p>
-        <p class="job-location">Location: {{job.recruiter.location}}</p>
-        <p class="salary">{{formatSalary job.salary}}</p>
-        <p>{{job.job_description}}</p>
-    </div>
-    </div>
-    {{/if}}
 </section>
 {{/if}}
