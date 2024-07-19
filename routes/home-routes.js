@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
             user = recruiterData.get({ plain: true });
         }
 
-        const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
+        const jobData = await Job.findAll({ include: [{ model: Recruiter }], order: [['createdAt', 'DESC']] });
         const jobs = jobData.map(job => {
             const jobPlain = job.get({ plain: true });
             jobPlain.isHomePage = true;
