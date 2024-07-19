@@ -3,18 +3,20 @@
  
   ## table of contents 
   *  [Description](#description)
+  *  [Deployed](#deployed)
   *  [Installation](#installation)
   *  [Usage](#usage)
-  *  [Questions](#questions)
   *  [License](#license)
-    
+  *  [Contributions](#contributions)
+  *  [Questions](#questions)
+  
   
 ## Description
-Our motivation to create this project was to make a to create an e-commerce backend application to track inventory. I built this project to create a streamlined way to add, remove, and update items into the inventory. This site solves the problem of not having an application to quickly process inventory changes. I learned how to use SQL routes and to create this application.
+Our motivation to create this project was to make a to create a job posting site where users can search for posts and recruiters can post job postings. We built this project to create a streamlined way to add, remove, and update job postings and to create opportuinties for job seekers. This site solves the problem of not having a website for job seekers to see current jobs that are available to them and to be able to apply to them. We learned how to build a full stack application by using node, PostgreSQL, api routes, middlewares, handlebars, Javascript, CSS, and HTML.
 
 ## Deployed Site
 
-This is a node application and it is accessible on the command line.
+The deployed site is available here. https://web-weavers-job-site.onrender.com/
 
 ## Installation
 
@@ -32,11 +34,11 @@ To install the app from the GitHub repository, follow these steps:
 
 ## Usage
 
-Open PostGreSQL in the terminal. Run schema.sql. Seed the database. Run node server.js. Open Insomnia and test the get, post, put, and delete routes. Here is a link to the video walkthrough. https://drive.google.com/file/d/1GNKmHYROkrdDjzM_0EQqrpzKXwyLOWzj/view?usp=sharing
+Navigate to the deployed website. Click on sign up. Sign up as a job seeker or a recruiter. If you sign up as a job seeker, you will be able to view job posts on your dashboard and apply to them. You could click on "My Profile" and add a photo to your profile. You could click on any of the available jobs listed and apply to them by clicking apply. If you sign up as a recruiter, you can create job posts by clicking "New Job Post". You can see who applied to your job postings by clicking on "Dashboard". You can click "Log Out" to log out of the application.
 
 
     ```md
-    ![Insomnia_Routes](./Insomnia.png)
+    ![New Job Post](./imgs/NewJobPost.png)
     ```
 
 
@@ -45,8 +47,11 @@ Open PostGreSQL in the terminal. Run schema.sql. Seed the database. Run node ser
   
 
   ## Contributions
-  Self. This project was made under the instruction of Mark Carlson in the UC Berkeley Software Development Bootcamp.
+  Jose Arambula, Thinh Nguyen, Alex Turrietta, and Stefan Wanigatunga contributed to this project. 
+  
 
   ## Questions
-  You can contact me at stefan.wanigatunga@gmail.com
-  My GitHub Username is stefanfilm
+  Jose Arambula github: daimyo1 
+  Thinh Ngyuen github: swe-thinhnguyen1701
+  Alex Turrietta github: turriettaa
+  Stefan Wanigatunga github: stefanfilm
