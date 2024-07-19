@@ -20,7 +20,7 @@ The deployed site is available here. https://web-weavers-job-site.onrender.com/
 
 ## Installation
 
-To install the app from the GitHub repository, follow these steps:
+To install the app from the GitHub repository located at https://github.com/stefanfilm/WebWeaversJobSite, follow these steps:
 
 1. Clone the repository itself. 
 
