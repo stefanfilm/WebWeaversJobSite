@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
             user = recruiterData.get({ plain: true });
         }
 
-        const jobData = await Job.findAll({ include: [{ model: Recruiter }] });
+        const jobData = await Job.findAll({ include: [{ model: Recruiter }], order: [['createdAt', 'DESC']] });
         const jobs = jobData.map(job => {
             const jobPlain = job.get({ plain: true });
             jobPlain.isHomePage = true;
@@ -196,6 +196,8 @@ router.get("/dashboard/job/:id", auth, async (req, res) => {
         const job = jobData.get({ plain: true });
         const candidates = candidateData.map(candidate => candidate.get({ plain: true }));
 
+        console.log(candidates);
+
         res.render("job", {
             job,
             candidates,
@@ -222,18 +224,35 @@ router.get("/dashboard/edit/job/:id", async (req, res) => {
     try {
         const jobData = await Job.findByPk(req.params.id);
 
-        if (!jobData) return res.status(404).json({ message: "Cannot find a job with given id" });
+        if (!jobData) {
+            res.status(404).render("404", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            return;
+        }
 
         const job = jobData.get({ plain: true });
+
+        if(job.recruiter_id !== req.session.user_id){
+            res.status(400).render("400", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            return;
+        }
+
         res.render("job-editor", {
             job,
             isUser: req.session.isUser,
             isRecruiter: req.session.isRecruiter,
             loggedIn: req.session.loggedIn
         });
-    }catch(error){
+    } catch (error) {
         console.error("ERROR occurs while loading data from /dashboard/edit/job\n", error);
-        res.status(500).json({message: "Internal error"});
+        res.status(500).json({ message: "Internal error" });
     }
 });
 

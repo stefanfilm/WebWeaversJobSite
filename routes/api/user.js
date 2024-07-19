@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
             user = await User.findOne({ where: { username } });
 
         if (!user || !user.checkPassword(password)) {
-            res.status(404).json({ message: "Username or Password is incorrect" });
+            res.status(401).json({ message: "Username or Password is incorrect" });
             return;
         }
 
@@ -114,7 +114,7 @@ router.post("/upload", upload.single("image"), async (req, res) => {
     }
 });
 
-router.post("/profile", async (req, res) => {
+router.put("/profile", async (req, res) => {
     try {
         const { first_name, last_name, job_title, company_name, location } = req.body;
         if (req.session.isRecruiter) {
@@ -144,11 +144,10 @@ router.post("/profile", async (req, res) => {
 
 router.post("/job/:id", async (req, res) => {
     try {
-        const application = await Application.create({
+        await Application.create({
             user_id: req.session.user_id,
             job_id: req.params.id
         });
-        if (!application) return res.status(404).json({ message: "Cannot find an application with given id" });
 
         res.status(200).json({ message: "Apply job success" });
     } catch (error) {
@@ -175,34 +174,51 @@ router.post("/newjob", async (req, res) => {
 
 router.put("/dashboard/edit/job/:id", async (req, res) => {
     try {
-        const job = await Job.update({
+        const [updatedRows] = await Job.update({
             title: req.body.title,
             job_description: req.body.job_description,
             salary: req.body.salary
         }, { where: { id: req.params.id } });
-        if (!job) return res.status(404).json({ message: "Cannot find a job with given id" });
+        
+        if (updatedRows === 0) {
+            res.status(404).render("404", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            return;
+        }
 
         res.status(200).json({ message: "Edit job post success" });
     } catch (error) {
         console.error("ERROR occurs while modify job post\n", error);
-        res.status(500).json("Internal error");
+        res.status(500).json({ message: "Internal error" });
     }
 });
 
 router.delete("/job/:id", async (req, res) => {
     try {
-        let job;
+        const data = req.session.isUser ?
+            await Application.findOne({ where: { job_id: req.params.id } }) :
+            await Job.findByPk(req.params.id);
+        if (!data) {
+            res.render("404", {
+                isUser: req.session.isUser,
+                isRecruiter: req.session.isRecruiter,
+                loggedIn: req.session.loggedIn,
+            });
+            res.status(404).json({ message: "Page was not found" });
+            return;
+        }
         if (req.session.isUser)
-            job = await Application.destroy({ where: { job_id: req.params.id } });
+            await Application.destroy({ where: { job_id: req.params.id } });
         else
-            job = await Job.destroy({ where: { id: req.params.id } });
-
-        if (!job) return res.status(404).json({ message: "Cannot find a job with given id" });
+            await Job.destroy({ where: { id: req.params.id } });
 
         res.status(200).json({ message: "Cancel application success!!" });
     } catch (error) {
         console.log("ERROR occurs while deleting job application\n", error);
-        res.status(500);
+        res.status(500).json({ message: "Cannot find a job with given id" });
     }
 });
 

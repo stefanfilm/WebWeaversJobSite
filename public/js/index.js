@@ -18,25 +18,30 @@ const loginHandler = async (event) => {
         const username = $("#username").val();
         const password = $("#password").val();
         const isRecruiter = $("#is-recruiter").prop("checked");
-        const res = await $.ajax({
+        await $.ajax({
             url: "/api/user/login",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ username, password, isRecruiter }),
             success: res => {
-                console.log(res);
                 if (res) {
                     window.location.replace("/");
+                }
+            }, error: xhr => {
+                if (xhr.status === 404) {
+                    // Show user-friendly message for 404 error
+                    $('#error-message').text('The login endpoint was not found. Please contact support.');
+                } else if (xhr.status === 401) {
+                    // Show message for unauthorized error
+                    $('#error-message').text('Invalid username or password. Please try again.');
                 } else {
-                    alert("username or password is incorrect!");
+                    // Show generic error message
+                    $('#error-message').text('An unexpected error occurred. Please try again later.');
                 }
             }
         });
-
-        console.log(res);
-        // if (res) document.location.replace("/");
     } catch (error) {
-        alert("Username or Password is incorrect");
+        alert(error.responseJSON.message);
     }
 
     cleanInput();
@@ -73,10 +78,7 @@ const uploadHandler = async (event) => {
         processData: false,
         contentType: false,
         success: (res) => {
-            console.log(res);
             if (res) {
-                console.log(res);
-                console.log("Success");
                 $("#img-profile").attr("src", res.imgUrl);
                 window.location.replace("/profile");
             }
@@ -87,30 +89,34 @@ const uploadHandler = async (event) => {
 }
 
 const editProfileHandler = async (event) => {
-    event.preventDefault();
-    const first_name = $("#first-name").val();
-    const last_name = $("#last-name").val();
-    const job_title = $("#job-title").val();
+    try {
+        event.preventDefault();
+        const first_name = $("#first-name").val();
+        const last_name = $("#last-name").val();
+        const job_title = $("#job-title").val();
 
-    if (first_name.length === 0 || last_name.length === 0 || job_title === 0) {
-        alert("Input field cannot be empty");
-        return;
-    }
+        const company_name = $("#company-name").val();
+        const location = $("#location").val();
+        if (!userInfoValidation(first_name, last_name)) return;
+        if (!recruiterValidation(company_name, location)) return;
 
-    await $.ajax({
-        url: "/api/user/profile",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({ first_name, last_name, job_title }),
-        success: res => {
-            console.log(res);
-            if (res) {
-                window.location.replace("/profile");
+        await $.ajax({
+            url: "/api/user/profile",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify({ first_name, last_name, job_title, company_name, location }),
+            success: res => {
+                console.log(res);
+                if (res) {
+                    window.location.replace("/profile");
+                }
+            }, error: () => {
+                alert("Failed to update data");
             }
-        }, error: () => {
-            alert("Failed to update data");
-        }
-    });
+        });
+    } catch (error) {
+        res.status(500).json("")
+    }
 }
 const signupHandler = async (event) => {
     event.preventDefault();
@@ -235,9 +241,9 @@ const jobEditHandler = async (event) => {
     try {
         event.preventDefault();
         const jobId = jobEditorForm.data("jobId");
-        const title = $("#new-job-title").val().trim();
+        const title = $("#new-job-title").val();
         const salary = parseFloat($("#salary").val());
-        const job_description = $("#new-job-description").val().trim();
+        const job_description = $("#new-job-description").val();
 
         if (!jobValidation(title, job_description)) return;
 
@@ -318,13 +324,12 @@ const accountValidation = (username, password, confirmPassword) => {
 
 const userInfoValidation = (firstName, lastName) => {
     if (firstName === undefined) return true;
-    console.log("userInfoValidation: ", firstName);
 
-    if (firstName.length === 0) {
+    if (firstName.trim().length === 0) {
         alert("First name cannot be empty");
         return false;
     }
-    if (lastName.length === 0) {
+    if (lastName.trim().length === 0) {
         alert("Last name cannot be empty");
         return false;
     }
@@ -335,11 +340,11 @@ const userInfoValidation = (firstName, lastName) => {
 const recruiterValidation = (company_name, location) => {
     if (company_name === undefined) return true;
 
-    if (company_name.length === 0) {
+    if (company_name.trim().length === 0) {
         alert("Company name cannot be empty");
         return false;
     }
-    if (location.length === 0) {
+    if (location.trim().length === 0) {
         alert("Location cannot be empty");
         return false;
     }

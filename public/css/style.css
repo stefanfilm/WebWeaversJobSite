@@ -80,6 +80,11 @@ p {
     text-decoration: underline;
 }
 
+.edit-link,
+.edit-link:visited {
+    color: black;
+}
+
 /* IMAGE */
 .img-container {
     width: 70px;
@@ -220,12 +225,12 @@ header {
     }
 }
 
-@media screen and (min-width: 768px){
-    .dropbtn{
+@media screen and (min-width: 768px) {
+    .dropbtn {
         display: none;
     }
 
-    .dropdown-content{
+    .dropdown-content {
         display: flex;
         position: unset;
         box-shadow: unset;
@@ -322,6 +327,8 @@ textarea {
     justify-content: center;
 }
 
+
+
 /* JOB */
 .job-section {
     width: 100%;
@@ -333,8 +340,11 @@ textarea {
 
 .candidate-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: nowrap;
+}
+.candidate-container .user-section{
+    margin: 15px 20px;
 }
 
 .job-container {
@@ -383,7 +393,7 @@ textarea {
     background-color: white;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(255, 102, 0, 0.863);
+    box-shadow: 0 2px 4px #ff6600dc;
 }
 
 @media screen and (min-width: 768px) {
@@ -416,6 +426,12 @@ textarea {
 
 .user-editor .image-input {
     display: none;
+}
+
+.user-editor .image-form:hover {
+    background-color: #ff6600dc;
+    color: white;
+    cursor: pointer;
 }
 
 .img-editor-container {
