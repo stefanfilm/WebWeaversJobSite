@@ -1,5 +1,5 @@
 const sequelize = require("../config/connection");
-const seedUsers = require("./userData");
+const seedUsers = require("./userdata");
 const seedRecruiters = require("./recruiterdata");
 const seedJobs = require("./jobdata");
 const seedApplications = require("./applicationdata");
