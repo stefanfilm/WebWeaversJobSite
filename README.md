@@ -18,7 +18,17 @@ This is a node application and it is accessible on the command line.
 
 ## Installation
 
-To install the project, pull the code from https://github.com/stefanfilm/ecommercebackend and open it in a code editor. Open the index.js in the code editor and view the JavaScript. Create a package.json and run npm init. Answer the questions. 
+To install the app from the GitHub repository, follow these steps:
+
+1. Clone the repository itself. 
+
+2. Install dependencies by running: npm install.
+
+3. Seed the database by running: npm run seed.
+
+4. Deploy the app on Render by following the deployment instructions on their platform.
+
+5. Click on the live link: https://web-weavers-job-site.onrender.com/
 
 ## Usage
 
