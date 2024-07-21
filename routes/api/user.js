@@ -167,7 +167,7 @@ router.post("/newjob", async (req, res) => {
 
         res.status(200).json({ message: "new job post is created" });
     } catch (error) {
-        console.error("ERROR occurs while creating new job post");
+        console.error("ERROR occurs while creating new job post\n", error);
         res.status(500).json({ message: "Internal error" });
     }
 });
