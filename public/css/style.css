@@ -340,10 +340,11 @@ textarea {
 
 .candidate-container {
     display: flex;
-    /* justify-content: space-between; */
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 .candidate-container .user-section{
+    width: 220px;
     margin: 15px 20px;
 }
 
