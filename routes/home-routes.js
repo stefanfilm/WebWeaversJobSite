@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { json } = require('sequelize');
-const auth = require("../middlewares/auth");
+const { auth, isRecruiter, isUser } = require("../middlewares/auth");
 const { Job, User, Recruiter, Application } = require('../models');
 
 router.get('/', async (req, res) => {
@@ -90,7 +89,7 @@ router.get("/profile", auth, async (req, res) => {
     }
 });
 
-router.get("/applications", auth, async (req, res) => {
+router.get("/applications", auth, isUser, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
@@ -160,7 +159,7 @@ router.get("/job/:id", auth, async (req, res) => {
     }
 });
 
-router.get("/dashboard", auth, async (req, res) => {
+router.get("/dashboard", auth, isRecruiter, async (req, res) => {
     try {
         const userData = await Recruiter.findByPk(req.session.user_id);
         const user = userData.get({ plain: true });
@@ -184,9 +183,9 @@ router.get("/dashboard", auth, async (req, res) => {
     }
 });
 
-router.get("/dashboard/job/:id", auth, async (req, res) => {
+router.get("/dashboard/job/:id", auth, isRecruiter, async (req, res) => {
     try {
-        const jobData = await Job.findByPk(req.params.id);
+        const jobData = await Job.findOne({ where: { id: req.params.id, recruiter_id: req.session.user_id } });
         const candidateData = await Application.findAll({ where: { job_id: req.params.id }, include: [{ model: User }] });
 
         if (!jobData || !candidateData) {
@@ -212,7 +211,7 @@ router.get("/dashboard/job/:id", auth, async (req, res) => {
     }
 });
 
-router.get("/newjob", auth, (req, res) => {
+router.get("/newjob", auth, isRecruiter, (req, res) => {
     res.render("new-job", {
         isUser: req.session.isUser,
         isRecruiter: req.session.isRecruiter,
@@ -220,7 +219,7 @@ router.get("/newjob", auth, (req, res) => {
     });
 });
 
-router.get("/dashboard/edit/job/:id", async (req, res) => {
+router.get("/dashboard/edit/job/:id", auth, isRecruiter, async (req, res) => {
     try {
         const jobData = await Job.findByPk(req.params.id);
 
@@ -235,7 +234,7 @@ router.get("/dashboard/edit/job/:id", async (req, res) => {
 
         const job = jobData.get({ plain: true });
 
-        if(job.recruiter_id !== req.session.user_id){
+        if (job.recruiter_id !== req.session.user_id) {
             res.status(400).render("400", {
                 isUser: req.session.isUser,
                 isRecruiter: req.session.isRecruiter,

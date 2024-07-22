@@ -16,7 +16,7 @@ Job.init({
         allowNull: false
     },
     job_description: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     salary: {
