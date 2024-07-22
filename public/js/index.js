@@ -278,7 +278,7 @@ const deleteHandler = async () => {
     try {
         const jobId = $(".job-detail").data("jobId");
         await $.ajax({
-            url: `/api/user/job/${jobId}`,
+            url: `/api/user/dashboard/job/${jobId}`,
             method: "DELETE",
             success: res => {
                 if (res) {

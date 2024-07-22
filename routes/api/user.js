@@ -179,7 +179,7 @@ router.put("/dashboard/edit/job/:id", async (req, res) => {
             job_description: req.body.job_description,
             salary: req.body.salary
         }, { where: { id: req.params.id } });
-        
+
         if (updatedRows === 0) {
             res.status(404).render("404", {
                 isUser: req.session.isUser,
@@ -224,8 +224,8 @@ router.delete("/job/:id", async (req, res) => {
 
 router.delete("/dashboard/job/:id", async (req, res) => {
     try {
-        const job = await Job.destroy({ where: { id: req.params.id } });
-        if (!job) return res.status(404).json({ message: "Cannot find a job with given id" });
+        const job = await Job.destroy({ where: { id: req.params.id, recruiter_id: req.session.user_id } });
+        if (job === 0) return res.status(404).json({ message: "Cannot find a job with given id" });
 
         res.status(200).json({ message: "Delete job success!!" });
     } catch (error) {
