@@ -20,38 +20,64 @@ The deployed site is available here. https://web-weavers-job-site.onrender.com/
 
 ## Installation
 
-To install the app from the GitHub repository, follow these steps:
+To install the app from the GitHub repository located at https://github.com/stefanfilm/WebWeaversJobSite, follow these steps:
 
-1. Clone the repository itself. 
+1. Clone the repository:
+```
+git clone git@github.com:stefanfilm/WebWeaversJobSite.git
+```
 
-2. Install dependencies by running: npm install.
+2. Install dependencies by running
+```
+npm install
+```
 
-3. Seed the database by running: npm run seed.
+3. Set up environment variables:
+```
+DB_NAME= "job_db"
+DB_USER=your_database_username
+DB_PASSWORD=your_database_password
+SESSION_SECRET=your_session_secret
+```
 
-4. Deploy the app on Render by following the deployment instructions on their platform.
+4. Seed the database by running:
+```
+npm run seed
+```
 
-5. Click on the live link: https://web-weavers-job-site.onrender.com/
+5. Run the server:
+```
+npm start
+```
 
 ## Usage
 
-Navigate to the deployed website. Click on sign up. Sign up as a job seeker or a recruiter. If you sign up as a job seeker, you will be able to view job posts on your dashboard and apply to them. You could click on "My Profile" and add a photo to your profile. You could click on any of the available jobs listed and apply to them by clicking apply. If you sign up as a recruiter, you can create job posts by clicking "New Job Post". You can see who applied to your job postings by clicking on "Dashboard". You can click "Log Out" to log out of the application.
+1. Navigate to the application:
 
+* Open your web browser and go to http://localhost:3000.
 
-    ```md
-    ![New Job Post](./imgs/NewJobPost.png)
-    ```
+2. Sign up and log in:
 
+* Users can sign up as either job seekers or recruiters.
+* Log in with your credentials.
 
-  ## License
+3. Post and apply for jobs:
+
+* Recruiters can post new job listings.
+* Job seekers can apply for available jobs.
+
+## License
   This project is licensed with the MIT license.
   
 
-  ## Contributions
+## Contributions
   Jose Arambula, Thinh Nguyen, Alex Turrietta, and Stefan Wanigatunga contributed to this project. 
   
-
-  ## Questions
+## Questions
   Jose Arambula github: daimyo1 
-  Thinh Ngyuen github: swe-thinhnguyen1701
+
+  Thinh Ngyuen github: [swe-thinhnguyen1701](https://github.com/swe-thinhnguyen1701)
+
   Alex Turrietta github: turriettaa
+  
   Stefan Wanigatunga github: stefanfilm
