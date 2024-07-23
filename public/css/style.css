@@ -346,7 +346,7 @@ textarea {
 .candidate-container .user-section{
     width: 220px;
     margin: 15px 20px;
-    display: block;
+    display: flex;
 }
 
 .job-container {
