@@ -345,6 +345,7 @@ textarea {
 }
 .candidate-container .user-section{
     margin: 15px 20px;
+    display: block;
 }
 
 .job-container {
